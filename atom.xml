@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>生命1昊</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-04-12T13:24:52.726Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>_日天昊</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>1-vue基础</title>
+    <link href="http://yoursite.com/2019/04/12/1-vue%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2019/04/12/1-vue基础/</id>
+    <published>2019-04-12T13:24:52.000Z</published>
+    <updated>2019-04-12T13:24:52.726Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>

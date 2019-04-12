@@ -1183,7 +1183,7 @@ pre .javascript .function {
 .menu {
   margin-top: 20px;
   padding-left: 0;
-  text-align: center;
+  text-align: right;
 }
 .menu .menu-item {
   display: inline-block;
@@ -1765,7 +1765,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2a14c7;
+  background: #e9819e;
 }
 .feed-link,
 .chat {

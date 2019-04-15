@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="vue生命周期个人理解 vue的本质是js文件, 所以他应该会和html文件一起构建成dom树, 然后和css 够成渲染树, beforeMounted 是指把vue中编译成的dom模板挂载到dom树中,mounted 是指把 dom树 挂载到页面中。   默认是created 先执行之后再执行watch ,因此在created 中 改变值, 并不会触发 watch, 但是immediate:tr">
+  <meta name="description" content="生命周期相关概念 生命周期: 指从vue实例创建, 运行到销毁期间。伴随着各式各样的事件, 这些事件统称为生命周期。   生命周期钩子: 指的是声明周期函数的别名; 生命周期钩子 = 生命周期函数 = 生命周期事件   vue生命周期生命周期函数分类创建期间 的生命周期钩子 beforeCreate: 表示刚初始化了一个空的实例, 身上只有一些默认的事件和生命周期函数, 其他的属性和方法都未创建;">
 <meta name="keywords" content="vue生命周期">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue生命周期">
 <meta property="og:url" content="http://yoursite.com/2019/04/15/vue生命周期/index.html">
 <meta property="og:site_name" content="生命1昊">
-<meta property="og:description" content="vue生命周期个人理解 vue的本质是js文件, 所以他应该会和html文件一起构建成dom树, 然后和css 够成渲染树, beforeMounted 是指把vue中编译成的dom模板挂载到dom树中,mounted 是指把 dom树 挂载到页面中。   默认是created 先执行之后再执行watch ,因此在created 中 改变值, 并不会触发 watch, 但是immediate:tr">
+<meta property="og:description" content="生命周期相关概念 生命周期: 指从vue实例创建, 运行到销毁期间。伴随着各式各样的事件, 这些事件统称为生命周期。   生命周期钩子: 指的是声明周期函数的别名; 生命周期钩子 = 生命周期函数 = 生命周期事件   vue生命周期生命周期函数分类创建期间 的生命周期钩子 beforeCreate: 表示刚初始化了一个空的实例, 身上只有一些默认的事件和生命周期函数, 其他的属性和方法都未创建;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-15T01:49:03.260Z">
+<meta property="og:updated_time" content="2019-04-15T14:03:09.874Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue生命周期">
-<meta name="twitter:description" content="vue生命周期个人理解 vue的本质是js文件, 所以他应该会和html文件一起构建成dom树, 然后和css 够成渲染树, beforeMounted 是指把vue中编译成的dom模板挂载到dom树中,mounted 是指把 dom树 挂载到页面中。   默认是created 先执行之后再执行watch ,因此在created 中 改变值, 并不会触发 watch, 但是immediate:tr">
+<meta name="twitter:description" content="生命周期相关概念 生命周期: 指从vue实例创建, 运行到销毁期间。伴随着各式各样的事件, 这些事件统称为生命周期。   生命周期钩子: 指的是声明周期函数的别名; 生命周期钩子 = 生命周期函数 = 生命周期事件   vue生命周期生命周期函数分类创建期间 的生命周期钩子 beforeCreate: 表示刚初始化了一个空的实例, 身上只有一些默认的事件和生命周期函数, 其他的属性和方法都未创建;">
 
 
 
@@ -387,7 +387,7 @@
                 
               
 
-              <time title="创建时间：2019-04-15 08:55:51 / 修改时间：09:49:03" itemprop="dateCreated datePublished" datetime="2019-04-15T08:55:51+08:00">2019-04-15</time>
+              <time title="创建时间：2019-04-15 08:55:51 / 修改时间：22:03:09" itemprop="dateCreated datePublished" datetime="2019-04-15T08:55:51+08:00">2019-04-15</time>
             
 
             
@@ -444,24 +444,14 @@
       
 
       
-        <h1 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h1><h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><blockquote>
-<p>vue的本质是js文件, 所以他应该会和html文件一起构建成dom树, 然后和css 够成渲染树, beforeMounted 是指把vue中编译成的dom模板挂载到dom树中,mounted 是指把 dom树 挂载到页面中。</p>
-</blockquote>
-<blockquote>
-<p>默认是created 先执行之后再执行watch ,因此在created 中 改变值, 并不会触发 watch, 但是immediate:true 时, 监听器会先执行。</p>
-</blockquote>
-<blockquote>
-<p>由于created 在update执行之前执行,所以在created中赋值 也不会触发update</p>
-</blockquote>
-<hr>
-<h2 id="生命周期相关概念"><a href="#生命周期相关概念" class="headerlink" title="生命周期相关概念"></a>生命周期相关概念</h2><blockquote>
+        <h2 id="生命周期相关概念"><a href="#生命周期相关概念" class="headerlink" title="生命周期相关概念"></a>生命周期相关概念</h2><blockquote>
 <p><strong>生命周期:</strong> 指从vue实例创建, 运行到销毁期间。伴随着各式各样的事件, 这些事件统称为生命周期。</p>
 </blockquote>
 <blockquote>
 <p><strong>生命周期钩子:</strong> 指的是声明周期函数的别名; 生命周期钩子 = 生命周期函数 = 生命周期事件</p>
 </blockquote>
 <hr>
-<h2 id="生命周期函数分类"><a href="#生命周期函数分类" class="headerlink" title="生命周期函数分类"></a><strong>生命周期函数分类</strong></h2><h3 id="创建期间-的生命周期钩子"><a href="#创建期间-的生命周期钩子" class="headerlink" title="创建期间 的生命周期钩子"></a><strong>创建期间</strong> 的生命周期钩子</h3><ol>
+<h1 id="vue生命周期"><a href="#vue生命周期" class="headerlink" title="vue生命周期"></a>vue生命周期</h1><h2 id="生命周期函数分类"><a href="#生命周期函数分类" class="headerlink" title="生命周期函数分类"></a><strong>生命周期函数分类</strong></h2><h3 id="创建期间-的生命周期钩子"><a href="#创建期间-的生命周期钩子" class="headerlink" title="创建期间 的生命周期钩子"></a><strong>创建期间</strong> 的生命周期钩子</h3><ol>
 <li><p>beforeCreate: 表示刚初始化了一个空的实例, 身上只有一些默认的事件和生命周期函数, 其他的属性和方法都未创建; (在beforeCreate生命周期函数执行的时候, data和methods 中的数据都还没有初始化)</p>
 </li>
 <li><p>created: 这个时候data和methods中数据已经初始化完毕, 如果要使用 data 和 methods 中的数据最早只能在created中操作</p>
@@ -486,6 +476,23 @@
 <li><p>destroyed: 当对象中所有的内容都已经销毁后,调用destroy生命周期钩子 结束vue 实例的声明。</p>
 </li>
 </ol>
+<h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><blockquote>
+<p>vue的本质是js文件, 所以他应该会和html文件一起构建成dom树, 然后和css 够成渲染树, beforeMounted 是指把vue中编译成的dom模板挂载到dom树中,mounted 是指把 dom树 挂载到页面中。</p>
+</blockquote>
+<blockquote>
+<p>默认是created 先执行之后再执行watch ,因此在created 中 改变值, 并不会触发 watch, 但是immediate:true 时, 监听器会先执行。</p>
+</blockquote>
+<blockquote>
+<p>由于created 在update执行之前执行,所以在created中赋值 也不会触发update</p>
+</blockquote>
+<h3 id="methods-computed-和-watch的执行顺序"><a href="#methods-computed-和-watch的执行顺序" class="headerlink" title="methods,computed 和 watch的执行顺序"></a>methods,computed 和 watch的执行顺序</h3><p>computed, methods 是在created 期间就加载完的, 但是methods 需要调用才会执行,因此它们的执行顺序为：默认加载的时候先computed再watch，不执行methods；等触发某一事件后，则是：先methods再watch。</p>
+<hr>
+<h2 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h2><blockquote>
+<p>  切换组件的时候会触发组件的 生命周期函数 ,但不会触发 销毁期间 钩子函数  (已测试)</p>
+</blockquote>
+<blockquote>
+<p>  路由跳转的时候也会触发组件的生命周期函数,但是也不会触发 销毁期间的钩子函数(销毁未测试)</p>
+</blockquote>
 
       
     </div>
@@ -544,8 +551,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/04/15/vue组件/" rel="prev" title="vue组件">
-                vue组件 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/15/vue组件/" rel="prev" title="vue组件-上">
+                vue组件-上 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -617,7 +624,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">6</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -667,7 +674,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">5</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -712,7 +723,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue生命周期"><span class="nav-number">1.</span> <span class="nav-text">vue生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解"><span class="nav-number">1.1.</span> <span class="nav-text">个人理解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期相关概念"><span class="nav-number">1.2.</span> <span class="nav-text">生命周期相关概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期函数分类"><span class="nav-number">1.3.</span> <span class="nav-text">生命周期函数分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建期间-的生命周期钩子"><span class="nav-number">1.3.1.</span> <span class="nav-text">创建期间 的生命周期钩子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行期间-的生命周期钩子"><span class="nav-number">1.3.2.</span> <span class="nav-text">运行期间 的生命周期钩子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#销毁期间-的生命周期钩子"><span class="nav-number">1.3.3.</span> <span class="nav-text">销毁期间 的生命周期钩子</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期相关概念"><span class="nav-number">1.</span> <span class="nav-text">生命周期相关概念</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#vue生命周期"><span class="nav-number"></span> <span class="nav-text">vue生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期函数分类"><span class="nav-number">1.</span> <span class="nav-text">生命周期函数分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建期间-的生命周期钩子"><span class="nav-number">1.1.</span> <span class="nav-text">创建期间 的生命周期钩子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行期间-的生命周期钩子"><span class="nav-number">1.2.</span> <span class="nav-text">运行期间 的生命周期钩子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#销毁期间-的生命周期钩子"><span class="nav-number">1.3.</span> <span class="nav-text">销毁期间 的生命周期钩子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text">个人理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#methods-computed-和-watch的执行顺序"><span class="nav-number">2.1.</span> <span class="nav-text">methods,computed 和 watch的执行顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件生命周期"><span class="nav-number">3.</span> <span class="nav-text">组件生命周期</span></a></li></ol></li></div>
             
 
           </div>

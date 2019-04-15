@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="生命1昊">
 <meta property="og:description" content="Vue框架基础vue常见指令v-cloak,v-html,v-text处理文本指令 文本闪烁问题: data中的属性等 会替换对应的 mustache插值 。但是如果没有请求到该数据的时候, mustache插值 会被显示到页面上。等到请求到数据之后页面上的插值表达式才会被 vue实例中的数据替换掉。  v-cloak指令: 该指令会在请求到数据之后移除, 因此可以使用此指令解决文本闪烁问题。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-14T13:47:57.049Z">
+<meta property="og:updated_time" content="2019-04-15T00:52:47.922Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue基础知识">
 <meta name="twitter:description" content="Vue框架基础vue常见指令v-cloak,v-html,v-text处理文本指令 文本闪烁问题: data中的属性等 会替换对应的 mustache插值 。但是如果没有请求到该数据的时候, mustache插值 会被显示到页面上。等到请求到数据之后页面上的插值表达式才会被 vue实例中的数据替换掉。  v-cloak指令: 该指令会在请求到数据之后移除, 因此可以使用此指令解决文本闪烁问题。">
@@ -404,7 +404,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-14 21:47:57" itemprop="dateModified" datetime="2019-04-14T21:47:57+08:00">2019-04-14</time>
+                <time title="修改时间：2019-04-15 08:52:47" itemprop="dateModified" datetime="2019-04-15T08:52:47+08:00">2019-04-15</time>
               
             
           </span>
@@ -489,12 +489,13 @@
 </li>
 </ol>
 <ul>
-<li><strong>.stop 与 .self 的区别</strong></li>
-</ul>
+<li><p><strong>.stop 与 .self 的区别</strong></p>
 <ul>
 <li><p>self 指事件只作用在自己身上,并不会取消当前元素的冒泡行为。点击子元素不会触发该元素的,但是如果子元素有祖父元素,则会触发祖父元素的事件。</p>
 </li>
 <li><p>stop 阻止当前事件冒泡不会继续往上触发,但是子标签的冒泡会触发到该元素的事件</p>
+</li>
+</ul>
 </li>
 </ul>
 <h3 id="按键修饰符"><a href="#按键修饰符" class="headerlink" title="按键修饰符"></a><strong>按键修饰符</strong></h3><blockquote>
@@ -544,6 +545,65 @@
 </ul>
 </li>
 </ul>
+<h3 id="v-bind-应用多个class"><a href="#v-bind-应用多个class" class="headerlink" title="v-bind:应用多个class"></a><strong>v-bind:应用多个class</strong></h3><ul>
+<li><p><strong>数组写法1:</strong> class=”[‘thin’,’red’,’active’]”</p>
+</li>
+<li><p><strong>数组写法2:</strong> class=”[‘thin’,’red’,{active:flag}]”</p>
+</li>
+<li><p><strong>数组写法3:</strong> class=”[‘thin’,’red’,flag?’active’:’’]”</p>
+</li>
+<li><p><strong>对象写法1:</strong> class=”{thin:true , red:true , active:true}”</p>
+</li>
+<li><p><strong>注意:</strong> 没有使用v-bind绑定的class 可以 和绑定的class叠加, 而不是覆盖</p>
+</li>
+</ul>
+<h3 id="v-bind-应用多个style"><a href="#v-bind-应用多个style" class="headerlink" title="v-bind:应用多个style"></a><strong>v-bind:应用多个style</strong></h3><ul>
+<li><p><strong>数组写法:</strong> style=”[{color:’red’}{‘font-size’:’20px’}]”</p>
+</li>
+<li><p><strong>对象写法:</strong> style=”{color:’red’,fontSize:’20px’}”</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>注意:</strong> 如果属性名直接写成font-size 的形式要加引号,如果写成驼峰命名的形式可以不加引号</p>
+</blockquote>
+<h3 id="v-for遍历的四种方法"><a href="#v-for遍历的四种方法" class="headerlink" title="v-for遍历的四种方法"></a><strong>v-for遍历的四种方法</strong></h3><ol>
+<li><p><strong>遍历数组</strong> <code>v-for=&quot;(item,index) in arr&quot;</code></p>
+</li>
+<li><p><strong>遍历数组对象</strong> <code>v-for=&quot;(user,index) in userArr&quot;</code></p>
+</li>
+<li><p><strong>遍历对象</strong> <code>v-for=&quot;(val,key,index) in users&quot;</code></p>
+<blockquote>
+<p><strong>注意：</strong> 值在前，键在后，对象是无序排列不建议使用index</p>
+</blockquote>
+</li>
+<li><p><strong>遍历数字</strong> <code>v-for=&quot;(count,index) in 10&quot;</code></p>
+<blockquote>
+<p><strong>注意:</strong> 遍历数字下标从0开始, 但是元素是从1开始</p>
+</blockquote>
+</li>
+</ol>
+<h3 id="key"><a href="#key" class="headerlink" title="key"></a><strong>key</strong></h3><p><code>key</code> 用来确保遍历数据的唯一性, 例: 如果使用v-for遍历数组的时候, 向数组的前面添加了一个元素, 如果第i个身上绑定了数据, 由于vue组件高度复用的特性, 那么在前面添加了一个元素之后, 可能数据会按照索引绑定到前面的一个身上</p>
+<blockquote>
+<p><strong>注意:</strong> key值只能是 Number 和String类型</p>
+</blockquote>
+<h3 id="v-if-和-v-show"><a href="#v-if-和-v-show" class="headerlink" title="v-if 和 v-show"></a><strong>v-if 和 v-show</strong></h3><ul>
+<li><p><strong>v-if, v-else-if, v-else</strong> v-if 每次都会删除或创建元素, 消耗很大的切换性能, 如果元素频繁切换, 建议使用v-show</p>
+</li>
+<li><p><strong>v-show, v-hide</strong> v-show 操作元素的display:nona/block, 有较高的初始渲染消耗, 如果元素很少显示出来 被用户看到推荐用v-if</p>
+</li>
+</ul>
+<hr>
+<h2 id="data"><a href="#data" class="headerlink" title="data"></a>data</h2><blockquote>
+<p>vue 中的数据 在vue的控制区域都可以使用</p>
+</blockquote>
+<ol>
+<li><p>如果修改了data中的数据, 会自动渲染到页面上</p>
+</li>
+<li><p><strong>数组的不可检测问题:</strong> </p>
+</li>
+</ol>
+<p><strong>问题1:</strong> 如果使用length属性清空data中的数据, vue不会检测到, 因此也不会同步到页面上<br><strong>解决方法:</strong> 不使用length属性 让数组等于空数组, 而不是让length等于0;</p>
+<p><strong>问题2:</strong> 使用数据的索引下标修改值, 也不会同步到页面上, vue不能检测<br><strong>解决方法1:</strong> 使用splice方法替换掉要修改下标的元素<br><strong>解决方法2:</strong> 使用vue 的强制响应方法 Vue.set(vue.item ,index, newVal)</p>
 
       
     </div>
@@ -675,7 +735,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -721,7 +781,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -766,7 +830,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue框架基础"><span class="nav-number">1.</span> <span class="nav-text">Vue框架基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vue常见指令"><span class="nav-number">1.1.</span> <span class="nav-text">vue常见指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v-cloak-v-html-v-text处理文本指令"><span class="nav-number">1.1.1.</span> <span class="nav-text">v-cloak,v-html,v-text处理文本指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-bind指令"><span class="nav-number">1.1.2.</span> <span class="nav-text">v-bind指令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-on绑定事件指令"><span class="nav-number">1.1.3.</span> <span class="nav-text">v-on绑定事件指令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件修饰符"><span class="nav-number">1.1.4.</span> <span class="nav-text">事件修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按键修饰符"><span class="nav-number">1.1.5.</span> <span class="nav-text">按键修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰符的顺序-存在疑问"><span class="nav-number">1.1.6.</span> <span class="nav-text">修饰符的顺序 ???存在疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exact-修饰符"><span class="nav-number">1.1.7.</span> <span class="nav-text">exact 修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-model"><span class="nav-number">1.1.8.</span> <span class="nav-text">v-model</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vue框架基础"><span class="nav-number">1.</span> <span class="nav-text">Vue框架基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#vue常见指令"><span class="nav-number">1.1.</span> <span class="nav-text">vue常见指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#v-cloak-v-html-v-text处理文本指令"><span class="nav-number">1.1.1.</span> <span class="nav-text">v-cloak,v-html,v-text处理文本指令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-bind指令"><span class="nav-number">1.1.2.</span> <span class="nav-text">v-bind指令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-on绑定事件指令"><span class="nav-number">1.1.3.</span> <span class="nav-text">v-on绑定事件指令:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件修饰符"><span class="nav-number">1.1.4.</span> <span class="nav-text">事件修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按键修饰符"><span class="nav-number">1.1.5.</span> <span class="nav-text">按键修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修饰符的顺序-存在疑问"><span class="nav-number">1.1.6.</span> <span class="nav-text">修饰符的顺序 ???存在疑问</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exact-修饰符"><span class="nav-number">1.1.7.</span> <span class="nav-text">exact 修饰符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-model"><span class="nav-number">1.1.8.</span> <span class="nav-text">v-model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-bind-应用多个class"><span class="nav-number">1.1.9.</span> <span class="nav-text">v-bind:应用多个class</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-bind-应用多个style"><span class="nav-number">1.1.10.</span> <span class="nav-text">v-bind:应用多个style</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-for遍历的四种方法"><span class="nav-number">1.1.11.</span> <span class="nav-text">v-for遍历的四种方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#key"><span class="nav-number">1.1.12.</span> <span class="nav-text">key</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-if-和-v-show"><span class="nav-number">1.1.13.</span> <span class="nav-text">v-if 和 v-show</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data"><span class="nav-number">1.2.</span> <span class="nav-text">data</span></a></li></ol></li></ol></div>
             
 
           </div>

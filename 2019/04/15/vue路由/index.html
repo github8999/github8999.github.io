@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="生命1昊">
 <meta property="og:description" content="vue-router(路由)路由起步当引入vue-router包之后, 在window中就有了VueRouter构造器, 此时在打开网页时, 路径后就会加一个 #/ (#/ 被称为哈希)  通过注入vue-router.js, 我们可以在任何组件内 访问到 路由 和 路由器, 也可以通过 this.$route 访问路由。同一个Vue实例中, $route 和 $router  是整个 #app">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-15T12:52:42.135Z">
+<meta property="og:updated_time" content="2019-04-25T15:11:12.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue路由">
 <meta name="twitter:description" content="vue-router(路由)路由起步当引入vue-router包之后, 在window中就有了VueRouter构造器, 此时在打开网页时, 路径后就会加一个 #/ (#/ 被称为哈希)  通过注入vue-router.js, 我们可以在任何组件内 访问到 路由 和 路由器, 也可以通过 this.$route 访问路由。同一个Vue实例中, $route 和 $router  是整个 #app">
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-04-15 19:26:05 / 修改时间：20:52:42" itemprop="dateCreated datePublished" datetime="2019-04-15T19:26:05+08:00">2019-04-15</time>
+              <time title="创建时间：2019-04-15 19:26:05" itemprop="dateCreated datePublished" datetime="2019-04-15T19:26:05+08:00">2019-04-15</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-25 23:11:12" itemprop="dateModified" datetime="2019-04-25T23:11:12+08:00">2019-04-25</time>
               
             
           </span>
@@ -513,8 +525,42 @@ router.push({path:&apos;/login/useId&apos;})
 <p>// 如果路由出口 router-view 没有设置 name , 则 name 默认为 default</p>
 <template id="login"><br>    <router-view name="a"></router-view><br>    <router-view name="b"></router-view><br>    <router-view></router-view><br></template>
 
-<p>const router = VueRouter({<br>    routes:[<br>        {path:’/login’,<br>        components:{<br>            default:com1,<br>            a:com2,<br>            c:com3<br>        }}<br>    ]<br>})<br><code>`</code></p>
-
+<p>const router = VueRouter({<br>    routes:[<br>        {path:’/login’,<br>        components:{<br>            default:com1,<br>            a:com2,<br>            c:com3<br>        }}<br>    ]<br>})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##  导航守卫</span><br><span class="line"></span><br><span class="line">&gt; **导航** 表示路由正在发生改变。</span><br><span class="line"></span><br><span class="line">正如其名, `vue-router` 提供的导航守卫主要用来 通过跳转或取消的方式来 守卫**导航** 。</span><br><span class="line"></span><br><span class="line">&gt; **注意:** 路由中参数的改变并不会触发 进入/离开 的导航守卫。你可以通过侦听 `$route`对象 或 beforeRouteUpdate 的组件内守卫。 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 全局前置守卫</span><br><span class="line"></span><br><span class="line">router.beforeEach 用来注册一个全局前置守卫,当一个导航触发时, 全局前置守卫按照创建顺序调用。守卫是异步解析执行, 此时导航( 正在发生改变的路径 )在所有的守卫resolve 完之前一直处于等待状态。</span><br><span class="line"></span><br><span class="line">&gt; 全局导航每个路由的改变都会触发, 不会触发路由参数的改变</span><br><span class="line"></span><br><span class="line">**每个守卫方法接受三个参数:**</span><br><span class="line"></span><br><span class="line">+   to, 即将要进入的目标路由</span><br><span class="line"></span><br><span class="line">+   from, 当前导航( 表示路由正在发生改变 )正要离开的路由</span><br><span class="line"></span><br><span class="line">+   next, **一定要调用该方法resolve这个钩子(before)** ,执行效果依赖于next方法的参数。</span><br><span class="line"></span><br><span class="line">    - next() 执行管道中的下一个钩子, 如果管道中的钩子执行完了, 则导航的状态就是 confirm (确认的,即确定进入to:route)</span><br><span class="line"></span><br><span class="line">    - next(false): 中断当前的导航。如果浏览器的url改变了( 可能是用户手动输入了 url 或浏览器后退按钮 ),那么 URL 的地址会重置到 from 对应的路由。</span><br><span class="line"></span><br><span class="line">    - next(&apos;/&apos;) 或者是 next(&#123;path:&apos;/&apos;&#125;) 跳转到一个不同的地址。即当前跳转的导航中断, 然后进行一个新的导航。可以向next() 中传递任意对象, 且允许设置诸如 replace:true, name:&apos;home&apos; 之类的选项 以及 用在 router-link 中的 to属性 和应用在 router.push 中的选项。</span><br><span class="line"></span><br><span class="line">    - next(error) 如果传给next的是一个 Error 实例, 则导航会被终止, 且错误会被传递给 router.onError() 注册过的回调 --&gt; 暂时不了解</span><br><span class="line">### 全局解析守卫</span><br><span class="line"></span><br><span class="line">router.beforeResolve 注册一个全局解析守卫, 这和 `beforeEach` 类似, 区别在导航被确认之前, 同时在所有的组件内守卫 和 异步路由组件 被解析之后, 解析守卫会被调用。</span><br><span class="line"></span><br><span class="line">### 全局后置钩子</span><br><span class="line"></span><br><span class="line">`router.afterEach` 注册一个全局后置钩子, 这些钩子不会接受 next 参数, 不会改变导航本身。</span><br><span class="line"></span><br><span class="line">### 路由独享的守卫</span><br><span class="line"></span><br><span class="line">可以在路由里直接定义 `beforeEnter` 守卫</span><br></pre></td></tr></table></figure></p>
+<p>const router = new VueRouter({<br>    routes: [<br>        {<br>            path:’/home’,<br>            component: Home,<br>            beforeEnter: () =&gt; {<br>                …<br>            }<br>        }<br>    ]<br>})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 组件内的守卫</span><br><span class="line"></span><br><span class="line">最后, 可以在路由组件内定义以下路由导航守卫: </span><br><span class="line"></span><br><span class="line">+   beforeRouteEnter </span><br><span class="line"></span><br><span class="line">    1. 该钩子会在渲染该组件的对应路由被 confirm 前被调用</span><br><span class="line"></span><br><span class="line">    2. **不能** 获取组件 **实例this** ,因为当守卫执行完之前, 组件实例还没有被创建。</span><br><span class="line"></span><br><span class="line">+   beforeRouteUpdate </span><br><span class="line">    </span><br><span class="line">    1. 在当前路由改变, 但是组件被复用的时候调用, 例: 动态匹配路由 </span><br><span class="line"></span><br><span class="line">    2. 该钩子**可以访问组件实例this**</span><br><span class="line"></span><br><span class="line">+   beforeRouteLeave</span><br><span class="line"></span><br><span class="line">    1. 导航离开该组件的路有时调用</span><br><span class="line"></span><br><span class="line">    2. 可以访问 this </span><br><span class="line"></span><br><span class="line">&gt; beforeRouteEnter 不能访问到 组件实例this, 是因为该守卫在导航被确认之前被调用, 此时即将登场的新组建还没有被创建。</span><br><span class="line"></span><br><span class="line">&gt; **但是,** 可以传一个回调函数给`next`来访问组件实例。在导航被确认的时候执行回调, 并且把组件的实例作为回调方法的参数。</span><br></pre></td></tr></table></figure></p>
+<p>beforeRouteEnter(to, from, next){<br>    next( vm =&gt; {<br>        // 通过 vm 访问组件实例<br>    })<br>}<br><code>`</code></p>
+<blockquote>
+<p><strong>注意:</strong> <code>beforeRouteEnter</code> 是唯一支持 next 方法中传回调函数获取 组件实例的钩子, 对 <code>beforeRouteUpdate</code> <code>beforeRouteLeave</code> 两者来说也没有要使用回调获取组件实例的必要</p>
+</blockquote>
+<blockquote>
+<p><code>beforeRouteLeave</code> 一般用来禁止用户还未保存修改之前离开。该导航可以通过 next(false) 取消。</p>
+</blockquote>
+<h3 id="导航完整的解析-resolve-流程"><a href="#导航完整的解析-resolve-流程" class="headerlink" title="导航完整的解析(resolve)流程"></a>导航完整的解析(resolve)流程</h3><ol>
+<li><p>导航被触发</p>
+</li>
+<li><p>在失活的组件内调用离开守卫 <code>beforeRouteLeave</code></p>
+</li>
+<li><p>调用全局的 <code>beforeEach</code> 守卫</p>
+</li>
+<li><p>在重用的组件里调用 <code>beforeRouteUpdate</code> 守卫 (2.2+)</p>
+</li>
+<li><p>在路由配置里调用 <code>beforeEnter</code></p>
+</li>
+<li><p>解析异步路由组件</p>
+</li>
+<li><p>在被激活的组件里调用<code>beforeRouteEnter</code>。</p>
+</li>
+<li><p>调用全局的<code>beforeResolve</code> 守卫(2.5+)</p>
+</li>
+<li><p>导航被确认confirm</p>
+</li>
+<li><p>调用全局的afterEach钩子( afterEach 在confirm 之后 触发DOM更新之前调用)</p>
+</li>
+<li><p>触发DOM更新</p>
+</li>
+<li><p>用创建好的组件实例调用<code>beforeRouteEnter</code>守卫中传给 next 回调函数。</p>
+</li>
+</ol>
+<h2 id="路由元信息"><a href="#路由元信息" class="headerlink" title="路由元信息"></a>路由元信息</h2>
       
     </div>
 
@@ -645,7 +691,7 @@ router.push({path:&apos;/login/useId&apos;})
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -668,7 +714,13 @@ router.push({path:&apos;/login/useId&apos;})
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -699,7 +751,15 @@ router.push({path:&apos;/login/useId&apos;})
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -744,7 +804,7 @@ router.push({path:&apos;/login/useId&apos;})
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-router-路由"><span class="nav-number">1.</span> <span class="nav-text">vue-router(路由)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#路由起步"><span class="nav-number">1.1.</span> <span class="nav-text">路由起步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态路由的匹配-路由传参"><span class="nav-number">1.2.</span> <span class="nav-text">动态路由的匹配(路由传参)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#params动态路径参数"><span class="nav-number">1.2.1.</span> <span class="nav-text">params动态路径参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#query传参"><span class="nav-number">1.2.2.</span> <span class="nav-text">query传参</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置路由的激活样式"><span class="nav-number">1.3.</span> <span class="nav-text">设置路由的激活样式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#router-link-active"><span class="nav-number">1.3.1.</span> <span class="nav-text">router-link-active</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#router-link-exact-active"><span class="nav-number">1.3.2.</span> <span class="nav-text">router-link-exact-active</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linkActiveClass属性"><span class="nav-number">1.3.3.</span> <span class="nav-text">linkActiveClass属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由重定向"><span class="nav-number">1.4.</span> <span class="nav-text">路由重定向</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-router-路由"><span class="nav-number">1.</span> <span class="nav-text">vue-router(路由)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#路由起步"><span class="nav-number">1.1.</span> <span class="nav-text">路由起步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态路由的匹配-路由传参"><span class="nav-number">1.2.</span> <span class="nav-text">动态路由的匹配(路由传参)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#params动态路径参数"><span class="nav-number">1.2.1.</span> <span class="nav-text">params动态路径参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#query传参"><span class="nav-number">1.2.2.</span> <span class="nav-text">query传参</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置路由的激活样式"><span class="nav-number">1.3.</span> <span class="nav-text">设置路由的激活样式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#router-link-active"><span class="nav-number">1.3.1.</span> <span class="nav-text">router-link-active</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#router-link-exact-active"><span class="nav-number">1.3.2.</span> <span class="nav-text">router-link-exact-active</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linkActiveClass属性"><span class="nav-number">1.3.3.</span> <span class="nav-text">linkActiveClass属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由重定向"><span class="nav-number">1.4.</span> <span class="nav-text">路由重定向</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#导航完整的解析-resolve-流程"><span class="nav-number">1.4.1.</span> <span class="nav-text">导航完整的解析(resolve)流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由元信息"><span class="nav-number">1.5.</span> <span class="nav-text">路由元信息</span></a></li></ol></li></ol></div>
             
 
           </div>

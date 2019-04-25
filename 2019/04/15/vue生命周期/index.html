@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="生命1昊">
 <meta property="og:description" content="生命周期相关概念 生命周期: 指从vue实例创建, 运行到销毁期间。伴随着各式各样的事件, 这些事件统称为生命周期。   生命周期钩子: 指的是声明周期函数的别名; 生命周期钩子 = 生命周期函数 = 生命周期事件   vue生命周期生命周期函数分类创建期间 的生命周期钩子 beforeCreate: 表示刚初始化了一个空的实例, 身上只有一些默认的事件和生命周期函数, 其他的属性和方法都未创建;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-15T14:03:09.874Z">
+<meta property="og:updated_time" content="2019-04-16T00:44:23.530Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue生命周期">
 <meta name="twitter:description" content="生命周期相关概念 生命周期: 指从vue实例创建, 运行到销毁期间。伴随着各式各样的事件, 这些事件统称为生命周期。   生命周期钩子: 指的是声明周期函数的别名; 生命周期钩子 = 生命周期函数 = 生命周期事件   vue生命周期生命周期函数分类创建期间 的生命周期钩子 beforeCreate: 表示刚初始化了一个空的实例, 身上只有一些默认的事件和生命周期函数, 其他的属性和方法都未创建;">
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-04-15 08:55:51 / 修改时间：22:03:09" itemprop="dateCreated datePublished" datetime="2019-04-15T08:55:51+08:00">2019-04-15</time>
+              <time title="创建时间：2019-04-15 08:55:51" itemprop="dateCreated datePublished" datetime="2019-04-15T08:55:51+08:00">2019-04-15</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-16 08:44:23" itemprop="dateModified" datetime="2019-04-16T08:44:23+08:00">2019-04-16</time>
               
             
           </span>
@@ -488,7 +500,7 @@
 <h3 id="methods-computed-和-watch的执行顺序"><a href="#methods-computed-和-watch的执行顺序" class="headerlink" title="methods,computed 和 watch的执行顺序"></a>methods,computed 和 watch的执行顺序</h3><p>computed, methods 是在created 期间就加载完的, 但是methods 需要调用才会执行,因此它们的执行顺序为：默认加载的时候先computed再watch，不执行methods；等触发某一事件后，则是：先methods再watch。</p>
 <hr>
 <h2 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h2><blockquote>
-<p>  切换组件的时候会触发组件的 生命周期函数 ,但不会触发 销毁期间 钩子函数  (已测试)</p>
+<p>  切换组件的时候会触发组件的 生命周期函数 ,但不会触发 销毁期间 钩子函数  (已测试) </p>
 </blockquote>
 <blockquote>
 <p>  路由跳转的时候也会触发组件的生命周期函数,但是也不会触发 销毁期间的钩子函数(销毁未测试)</p>
@@ -624,7 +636,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -647,7 +659,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">3</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">6</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -678,7 +696,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

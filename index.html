@@ -340,6 +340,256 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/28/vuex笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="_日天昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生命1昊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/28/vuex笔记/" class="post-title-link" itemprop="url">vuex笔记</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-28 08:59:59 / 修改时间：15:47:39" itemprop="dateCreated datePublished" datetime="2019-04-28T08:59:59+08:00">2019-04-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p><code>Vuex</code> 是一个专门为 <code>vue.js</code> 应用程序开发的 <code>状态管理模式</code>, 数据可以理解为数据, <code>Vuex</code> 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 <strong>对应的Vue实例的一个共享仓库</strong> 。</p>
+<h2 id="什么时候使用vuex"><a href="#什么时候使用vuex" class="headerlink" title="什么时候使用vuex"></a>什么时候使用vuex</h2><ol>
+<li><p>组件组件之间需要通信, 建议放在vuex。</p>
+</li>
+<li><p>需要跨多级组件通信, 建议放在vuex。</p>
+</li>
+<li><p>需要持久化的数据( 如登录后的用户信息 ), 建议放在vuex。</p>
+</li>
+<li><p>和业务强相关的数据, 可以放在组件内。</p>
+</li>
+</ol>
+<h2 id="vuex使用步骤"><a href="#vuex使用步骤" class="headerlink" title="vuex使用步骤"></a>vuex使用步骤</h2><ol>
+<li><p>在项目下运行 <code>npm install vuex --save</code></p>
+</li>
+<li><p>在一个模块化的项目中, 需要显示的通过 <code>Vue.use(Vuex)</code> 来安装vuex</p>
+</li>
+<li><p>在main.js 下导入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;  --&gt; 注意 &apos;vue&apos; 是小写</span><br><span class="line">import Vuex from &apos;vuex&apos;  --&gt; 注意小写</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把vuex注册到项目中 <code>Vue.use(Vuex)</code></p>
+</li>
+<li><p>创建vuex实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const store = new Vuex.Store(&#123;</span><br><span class="line">    state: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>把 store 挂载到 Vue实例上, 整个实例中的组件都可以获取到store中的数据。</p>
+</blockquote>
+<h3 id="modules模块化"><a href="#modules模块化" class="headerlink" title="modules模块化"></a>modules模块化</h3><p>为了避免, store中的数据过于集中从而变得不利于维护, 因此可以store分割成模块。每个模块拥有自己的state, mutations, actions, getters, 甚至嵌套子模块(modules)。</p>
+<blockquote>
+<p>模块化时, 需要把子模块挂载到<code>store</code>中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Vuex.Store(&#123;</span><br><span class="line">    modules:&#123;</span><br><span class="line">        moduleA,</span><br><span class="line">        moduleB</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>模块中通过 <code>namespaced: true</code> 开启命名空间。如果子模块中没有命名空间, 会继承父模块的命名空间。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>用来读取<code>store</code>实例中的数据, 虽然直接修改<code>state</code>中的数据不会报错, 但是不建议直接修改, 不利于维护。</p>
+<p>如果在某一个组件中直接通过<code>state</code> 错误的修改了数据, 通过state不容易查找到出错的源组件。</p>
+<h3 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h3><p><strong>作用:</strong> 修改<code>state</code>中的值, 要通过<code>mutation</code> 修改(<code>mutation</code> 指的是 定义在<code>mutations</code>中的方法)。 </p>
+<p>既然<code>vuex</code> 中的状态是响应式的, 那么我们变更状态时, 见识状态的vue组件也会自动更新。 <strong>因此<code>mutations</code>也要向使用<code>vue</code>一样遵守响应规则:</strong></p>
+<ol>
+<li><p>最好提前在<code>store</code>中初始化好所有需要的属性</p>
+</li>
+<li><p>当对象上添加新属性时, 你应该使用Vue.set(obj ,’newProp’, newVal), 或者以新对象替换老对象</p>
+</li>
+</ol>
+<blockquote>
+<p><code>mutation</code> 必须是同步函数, 我们调试一个项目并观察<code>devtools</code>中mutation日志, 每一条<code>mutation</code>被记录, <code>devtools</code> 都需要捕捉到前一状态和后以状态的快照( 可以理解为每个<code>mutation</code>的执行结果 )。异步会让这一功能无法完成, 因为当<code>mutation</code>触发时, 回调函数还没有被调用。<code>devtools</code> 不知道什么时候回调函数实际被调用 — 实质上任何在回调函数中进行的<code>state</code>改变都是没有办法追踪的。</p>
+</blockquote>
+<h3 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h3><p><code>getters</code> 可以看做是<code>store</code>的计算属性, getters 的返回值会根据它的依赖被缓存起来, 且只有当它的依赖发生了改变才会被重新计算。</p>
+<blockquote>
+<p><strong>注意:</strong> getters如果作为方法访问的时候, 每次都会被调用, 不会被缓存<br><strong>注意:</strong> getters 会暴露为store的属性, 因此可以通过$store.getters来访问它</p>
+</blockquote>
+<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><p>actions 类似于mutations, 不同在于: action 一般用来调用 mutation 来修改state 而不是直接变更状态( 修改state )</p>
+<p>actions 中可以包含任意的异步操作。</p>
+<p>例如: 点击购物车商品加减的时候, 需要请求ajax中获取商品的库存等, 这时要修改state就要通过 action 请求数据 调用mutation 修改state</p>
+<p>action 可以通过 store.dispatch(‘actionKey’) 触发, action支持载荷形式进行触发。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">store.dispatch(&apos;increment&apos;,&#123;count:10&#125;)</span><br><span class="line"></span><br><span class="line">store.dispatch(&#123;type:&apos;increment&apos;,count:10&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="参数总结"><a href="#参数总结" class="headerlink" title="参数总结"></a>参数总结</h2><h3 id="state-1"><a href="#state-1" class="headerlink" title="state"></a>state</h3><ol>
+<li><p>state 不是函数, 不需要传参</p>
+</li>
+<li><p>state 暴露为 store 的属性</p>
+</li>
+</ol>
+<h3 id="mutations-1"><a href="#mutations-1" class="headerlink" title="mutations"></a>mutations</h3><p>mutation(state, payload(载荷))</p>
+<ol>
+<li><p>state 是当前 module 中的 state</p>
+</li>
+<li><p>payload 如果是单个数据, 可以是一个基本数据类型, 如果是多个数据, 要作为对象或数组的形式传递</p>
+</li>
+</ol>
+<h3 id="getters-1"><a href="#getters-1" class="headerlink" title="getters"></a>getters</h3><ol>
+<li><p>在根store上注册的getter接受以下参数, state, getters</p>
+</li>
+<li><p>在模块上定义的getter可以接受四个参数state, getters, rootState, rootGetters</p>
+</li>
+</ol>
+<h3 id="actions-1"><a href="#actions-1" class="headerlink" title="actions"></a>actions</h3><ol>
+<li>action 的第一个参数是context和store内容相同但不是store, 也可以拆解为对象:{state, rootState, commit, dispatch, getters, rootGetters}</li>
+</ol>
+<h3 id="Vue-Store-实例方法"><a href="#Vue-Store-实例方法" class="headerlink" title="Vue.Store 实例方法"></a>Vue.Store 实例方法</h3><ol>
+<li><p>commit(‘moduleNamespaced/mutationKey’, payload, options), 如果要触发其他模块的mutation, 可以在options中通过{root: true, 在store中触发}</p>
+</li>
+<li><p>dispatch(‘module/actionKey’, payload, options), action 中的payload(载荷) 必须是一个对象, options 中可以是{root:true}</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/23/js基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1499,7 +1749,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-25 23:11:12" itemprop="dateModified" datetime="2019-04-25T23:11:12+08:00">2019-04-25</time>
+                <time title="修改时间：2019-04-26 08:18:36" itemprop="dateModified" datetime="2019-04-26T08:18:36+08:00">2019-04-26</time>
               
             
           </span>
@@ -2077,319 +2327,6 @@ router.push({path:&apos;/login/useId&apos;})
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/vue组件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="_日天昊">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="生命1昊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/15/vue组件/" class="post-title-link" itemprop="url">vue组件-上</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-15 10:00:09 / 修改时间：15:03:57" itemprop="dateCreated datePublished" datetime="2019-04-15T10:00:09+08:00">2019-04-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/vue框架/" itemprop="url" rel="index"><span itemprop="name">vue框架</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h1><p>组件的出现, 就是为了拆分Vue实例的代码量, 能够以不同的组件划分不同的模块, 我们需要什么功能, 就调用什么功能的模块</p>
-<h2 id="为什么需要组件"><a href="#为什么需要组件" class="headerlink" title="为什么需要组件"></a>为什么需要组件</h2><ol>
-<li><p>封装代码, 提高代码的复用性。</p>
-</li>
-<li><p>提高代码的可维护性。</p>
-</li>
-</ol>
-<hr>
-<h2 id="模块化和组件化的区别"><a href="#模块化和组件化的区别" class="headerlink" title="模块化和组件化的区别"></a>模块化和组件化的区别</h2><ol>
-<li><p>模块化是从代码逻辑的角度进行划分的, 方便代码分层开发, 保证每个模块的功能单一, 易扩展易维护。</p>
-</li>
-<li><p>组件化是从ui界面的角度进行划分的, 方便UI组件的重用。</p>
-</li>
-</ol>
-<h2 id="组件的使用"><a href="#组件的使用" class="headerlink" title="组件的使用"></a>组件的使用</h2><h3 id="创建组件模板的三种方式"><a href="#创建组件模板的三种方式" class="headerlink" title="创建组件模板的三种方式"></a>创建组件模板的三种方式</h3><blockquote>
-<p><strong>注意1:</strong> 组件模板中有且只能有一个根节点。</p>
-</blockquote>
-<blockquote>
-<p><strong>注意2:</strong> 在vue实例中组件注册时, 名称使用驼峰式命名, 而在页面中使用组件 标签名对应的驼峰要用 - 隔开。</p>
-</blockquote>
-<blockquote>
-<p><strong>注意3:</strong> 如果额米有使用驼峰式命名可以直接在页面使用该组件名称, 但是一般为了区分原生 html 标签, 组件一般用 - 隔开</p>
-</blockquote>
-<ol>
-<li><p>使用extend创建组件模板</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var myCom = Vue.extend(&#123;</span><br><span class="line">    template:&apos;&lt;div&gt; myCom组件 &lt;/div&gt;&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用字面量形式创建模板</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var myCom = &#123;</span><br><span class="line">    template:&apos;&lt;div&gt; myCom组件 &lt;/div&gt;&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用template标签创建模板</p>
-</li>
-</ol>
-<p>html部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;template id=&quot;my-com&quot;&gt;</span><br><span class="line">    &lt;div&gt; myCom组件 &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></p>
-<p>js部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var myCom = &#123;</span><br><span class="line">    template:&apos;#my-com&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="组件的使用步骤"><a href="#组件的使用步骤" class="headerlink" title="组件的使用步骤"></a>组件的使用步骤</h3><ol>
-<li><p>创建组件模板对象</p>
-</li>
-<li><p>创建组件,把模板对象注入到组件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- 全局组件</span><br><span class="line">// 模板对象可以直接用字面量创建, 也可以传递一个模板对象</span><br><span class="line">Vue.component(&apos;组件名&apos;,myCom)</span><br><span class="line"></span><br><span class="line">- 私有组件</span><br><span class="line">new Vue(&#123;</span><br><span class="line">    components:&#123;</span><br><span class="line">        mycom</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>把组件注册到实例中</p>
-</li>
-</ol>
-<h3 id="组件中的data"><a href="#组件中的data" class="headerlink" title="组件中的data"></a>组件中的data</h3><blockquote>
-<p>组件中的data是一个方法, 方法内部返回了一个对象; 而vue实例中data 是一个对虾干;</p>
-</blockquote>
-<blockquote>
-<p>多次复用同一个组件, 每个组件中的数据是相互独立的; 原理是每次复用组件,data中的数据都是一个新对象, 因此他们之前的数据互不影响</p>
-</blockquote>
-<blockquote>
-<p>组件中的data在组件中的使用 与 vue实例中的使用方式相同。</p>
-</blockquote>
-<ul>
-<li>组件中的data为什么是个方法返回一个对象: 通过方法返回一个对象来保证复用组件时,保证data中的数据互不影响</li>
-</ul>
-<h3 id="切换组件"><a href="#切换组件" class="headerlink" title="切换组件"></a>切换组件</h3><blockquote>
-<p>使用 <code>&lt;component&gt;</code> 的is 属性, 也可以实现 组件标签的效果,例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-com&gt;  ==&gt; &lt;component is=&quot;myCom / my-com&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="父组件向子组件传值"><a href="#父组件向子组件传值" class="headerlink" title="父组件向子组件传值"></a>父组件向子组件传值</h3><blockquote>
-<p>子组件默认无法访问父组件中 data 中的数据 和 methods 中的方法。</p>
-</blockquote>
-<p><strong>父组件向子组件传值步骤:</strong></p>
-<ol>
-<li><p>在父组件 使用 子组件 的标签上自定义属性,例: <code>&lt;subCom :msg=&quot;msg&quot;&gt;&lt;/subCom&gt;</code></p>
-</li>
-<li><p>在子组件 <code>props</code> 中定义该自定义属性的键名 <code>msg</code>, <code>props:[&#39;msg&#39;]</code>。</p>
-</li>
-</ol>
-<blockquote>
-<p><strong>注意</strong> 标签的属性值部分不区分大小写, 如果自定义属性为 myProp, 则要定义为 myprop,例:<code>&lt;sub-com :mG=msg&gt;&lt;/sub-com&gt;</code> =&gt; <code>props:&#39;mg&#39;</code>, 一般使用 - 隔开</p>
-</blockquote>
-<ul>
-<li><p>props 与 data的区别</p>
-<ul>
-<li><p>props 中的数据, 都是通过父组件传递给子组件的; 子组件中的data数据并不是通过父组件传递过来的, 而是子组件自身私有的。</p>
-</li>
-<li><p>props是单向数据流, 子组件中定义的props直接修改会有报警提示, 但是可以通过.sync修饰符来修改; 而data中的数据是可读可写的。</p>
-</li>
-<li><p>要想控制 props 中的属性值, 可以通过赋值到 data 中来操控。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="单向数据流"><a href="#单向数据流" class="headerlink" title="单向数据流"></a>单向数据流</h3><blockquote>
-<p>所有的 prop 都会是父子 prop 之间形成一个 <strong>单行向下邦定:</strong> 父级 prop 的更新会向下流到子组件中, 但反过来则不行, 这样会防止从子组件以外改变父级组件的状态, 从而导致你应用的数据的流向难以理解。</p>
-</blockquote>
-<blockquote>
-<p>额外的, <strong>每次父级组件发生更新时, 子组件中所有的 prop 都将刷新为最新的值</strong>。着以为着你不应该在子组件内部改变prop。如果这样做 vue 会在控制台发出警告。</p>
-</blockquote>
-<p>需要改变 props 中数据的两种情况:</p>
-<ol>
-<li><p><strong>需要 prop 作为本地数据使用</strong> : 把 prop 赋值到 data 中, 作为本地数据使用。</p>
-</li>
-<li><p><strong>需要对 prop 中的数据进行包装</strong> 则可以使用计算属性。</p>
-</li>
-</ol>
-<ul>
-<li><strong>注意:</strong> 单向数据流不会检测 object 属性值的改变。因为 object 传递的是对象的虚地址, 即使修改了对象中属性的值, 虚地址不会因此改变。</li>
-</ul>
-<h3 id="子组件向父组件传值"><a href="#子组件向父组件传值" class="headerlink" title="子组件向父组件传值"></a>子组件向父组件传值</h3><p><strong>子组件向父组件传值步骤</strong></p>
-<ol>
-<li><p>父组件中在调用 子级组件的标签上 自定义事件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;sub-com @subclick=&quot;click1&quot;&gt;&lt;/sub-com&gt;</span><br><span class="line"></span><br><span class="line">click(arg)&#123;</span><br><span class="line">    console.log(&apos;子组件传递的数据&apos;+arg)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>子组件中定义方法, 触发方法时, 借调父级组件 自定义的事件 调用的方法, 并向该方法传递参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">send()&#123;</span><br><span class="line">    this.$emit(&apos;subclick&apos;,this.data);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="prop验证-限制prop数据类型"><a href="#prop验证-限制prop数据类型" class="headerlink" title="prop验证(限制prop数据类型)"></a>prop验证(限制prop数据类型)</h3><ol>
-<li><p>为了提供 props 验证的功能, props 也可以指向一个对象而不仅仅是数组</p>
-</li>
-<li><p><strong>注意:</strong> prop 会在 beforeCreate 验证, 所以实例的属性( 如data,computed等 )在 default 或 validator 函数中是不可用的。</p>
-</li>
-<li><p>使用方式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 定义为 String 类型</span><br><span class="line">props:&#123;</span><br><span class="line">    msg:String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 定义为 prop 为 String 或 Number 类型</span><br><span class="line">props:&#123;</span><br><span class="line">    mgs:[string,Number]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 定义 父组件定义属性 的时候,必须传递一个字符串</span><br><span class="line">props:&#123;</span><br><span class="line">    msg:&#123;</span><br><span class="line">        type:String,</span><br><span class="line">        required:true</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 定义如果父组件没有定义该 prop ,子组件中 prop 的默认值</span><br><span class="line">props:&#123;</span><br><span class="line">    msg:&#123;</span><br><span class="line">        type:String,</span><br><span class="line">        default:&apos;默认值&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ...</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li><p>type 可以是下列原生构造函数中的一个：</p>
-<ul>
-<li><p>String</p>
-</li>
-<li><p>Number</p>
-</li>
-<li><p>Boolean</p>
-</li>
-<li><p>Array</p>
-</li>
-<li><p>Object</p>
-</li>
-<li><p>Date</p>
-</li>
-<li><p>Function</p>
-</li>
-<li><p>Symbol</p>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="sync实现双向数据流"><a href="#sync实现双向数据流" class="headerlink" title="sync实现双向数据流"></a>sync实现双向数据流</h3><p>使用步骤: </p>
-<ol>
-<li><p>在父类传值的自定义属性上加上 .sync 修饰符 <code>:msg.sync=&quot;msg&quot;</code></p>
-</li>
-<li><p>修改时, 通过 $emit(‘update:自定义的属性名’,属性值) 响应: <code>$emit(&#39;update:msg&#39;,msg)</code></p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-      
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2438,7 +2375,7 @@ router.push({path:&apos;/login/useId&apos;})
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2467,7 +2404,9 @@ router.push({path:&apos;/login/useId&apos;})
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2506,7 +2445,9 @@ router.push({path:&apos;/login/useId&apos;})
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

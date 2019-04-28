@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="HTML常见的通用属性id属性id属性 作为标签的唯一标识, 在同一个页面中不能出现不同的 id值。  class属性class属性 用来为标签分组, 拥有相同的 class值 的标签可以看做是一组, 同一个页面中可以出现相同的 class , 同一个标签也可以有多个 id title属性title属性 用来指定标签的标题, 指定 title 以后, 鼠标移入到元素上方时,会出提示 title属性">
-<meta name="keywords" content="html基础">
+  <meta name="description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 数据可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
+<meta name="keywords" content="vuex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTML笔记">
-<meta property="og:url" content="http://yoursite.com/2019/04/16/HTML笔记/index.html">
+<meta property="og:title" content="vuex笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/28/vuex笔记/index.html">
 <meta property="og:site_name" content="生命1昊">
-<meta property="og:description" content="HTML常见的通用属性id属性id属性 作为标签的唯一标识, 在同一个页面中不能出现不同的 id值。  class属性class属性 用来为标签分组, 拥有相同的 class值 的标签可以看做是一组, 同一个页面中可以出现相同的 class , 同一个标签也可以有多个 id title属性title属性 用来指定标签的标题, 指定 title 以后, 鼠标移入到元素上方时,会出提示 title属性">
+<meta property="og:description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 数据可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-23T00:30:40.050Z">
+<meta property="og:updated_time" content="2019-04-28T07:47:39.868Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTML笔记">
-<meta name="twitter:description" content="HTML常见的通用属性id属性id属性 作为标签的唯一标识, 在同一个页面中不能出现不同的 id值。  class属性class属性 用来为标签分组, 拥有相同的 class值 的标签可以看做是一组, 同一个页面中可以出现相同的 class , 同一个标签也可以有多个 id title属性title属性 用来指定标签的标题, 指定 title 以后, 鼠标移入到元素上方时,会出提示 title属性">
+<meta name="twitter:title" content="vuex笔记">
+<meta name="twitter:description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 数据可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
 
 
 
@@ -117,7 +117,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/04/16/HTML笔记/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/28/vuex笔记/">
 
 
 
@@ -127,7 +127,7 @@
   };
 </script>
 
-  <title>HTML笔记 | 生命1昊</title>
+  <title>vuex笔记 | 生命1昊</title>
   
 
 
@@ -344,7 +344,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/HTML笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/28/vuex笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="_日天昊">
@@ -361,7 +361,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HTML笔记
+          <h1 class="post-title" itemprop="name headline">vuex笔记
 
               
             
@@ -387,24 +387,12 @@
                 
               
 
-              <time title="创建时间：2019-04-16 08:51:21" itemprop="dateCreated datePublished" datetime="2019-04-16T08:51:21+08:00">2019-04-16</time>
+              <time title="创建时间：2019-04-28 08:59:59 / 修改时间：15:47:39" itemprop="dateCreated datePublished" datetime="2019-04-28T08:59:59+08:00">2019-04-28</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-23 08:30:40" itemprop="dateModified" datetime="2019-04-23T08:30:40+08:00">2019-04-23</time>
               
             
           </span>
@@ -421,7 +409,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/html/" itemprop="url" rel="index"><span itemprop="name">html</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
 
                 
                 
@@ -456,10 +444,91 @@
       
 
       
-        <h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="常见的通用属性"><a href="#常见的通用属性" class="headerlink" title="常见的通用属性"></a>常见的通用属性</h2><h3 id="id属性"><a href="#id属性" class="headerlink" title="id属性"></a>id属性</h3><p>id属性 作为标签的唯一标识, 在同一个页面中不能出现不同的 id值。 </p>
-<h3 id="class属性"><a href="#class属性" class="headerlink" title="class属性"></a>class属性</h3><p>class属性 用来为标签分组, 拥有相同的 class值 的标签可以看做是一组, 同一个页面中可以出现相同的 class , 同一个标签也可以有多个 id</p>
-<h3 id="title属性"><a href="#title属性" class="headerlink" title="title属性"></a>title属性</h3><p>title属性 用来指定标签的标题, 指定 title 以后, 鼠标移入到元素上方时,会出提示 title属性中的内容。</p>
-<h2 id="常用的标签"><a href="#常用的标签" class="headerlink" title="常用的标签"></a>常用的标签</h2>
+        <h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p><code>Vuex</code> 是一个专门为 <code>vue.js</code> 应用程序开发的 <code>状态管理模式</code>, 数据可以理解为数据, <code>Vuex</code> 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 <strong>对应的Vue实例的一个共享仓库</strong> 。</p>
+<h2 id="什么时候使用vuex"><a href="#什么时候使用vuex" class="headerlink" title="什么时候使用vuex"></a>什么时候使用vuex</h2><ol>
+<li><p>组件组件之间需要通信, 建议放在vuex。</p>
+</li>
+<li><p>需要跨多级组件通信, 建议放在vuex。</p>
+</li>
+<li><p>需要持久化的数据( 如登录后的用户信息 ), 建议放在vuex。</p>
+</li>
+<li><p>和业务强相关的数据, 可以放在组件内。</p>
+</li>
+</ol>
+<h2 id="vuex使用步骤"><a href="#vuex使用步骤" class="headerlink" title="vuex使用步骤"></a>vuex使用步骤</h2><ol>
+<li><p>在项目下运行 <code>npm install vuex --save</code></p>
+</li>
+<li><p>在一个模块化的项目中, 需要显示的通过 <code>Vue.use(Vuex)</code> 来安装vuex</p>
+</li>
+<li><p>在main.js 下导入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;  --&gt; 注意 &apos;vue&apos; 是小写</span><br><span class="line">import Vuex from &apos;vuex&apos;  --&gt; 注意小写</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把vuex注册到项目中 <code>Vue.use(Vuex)</code></p>
+</li>
+<li><p>创建vuex实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const store = new Vuex.Store(&#123;</span><br><span class="line">    state: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>把 store 挂载到 Vue实例上, 整个实例中的组件都可以获取到store中的数据。</p>
+</blockquote>
+<h3 id="modules模块化"><a href="#modules模块化" class="headerlink" title="modules模块化"></a>modules模块化</h3><p>为了避免, store中的数据过于集中从而变得不利于维护, 因此可以store分割成模块。每个模块拥有自己的state, mutations, actions, getters, 甚至嵌套子模块(modules)。</p>
+<blockquote>
+<p>模块化时, 需要把子模块挂载到<code>store</code>中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Vuex.Store(&#123;</span><br><span class="line">    modules:&#123;</span><br><span class="line">        moduleA,</span><br><span class="line">        moduleB</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>模块中通过 <code>namespaced: true</code> 开启命名空间。如果子模块中没有命名空间, 会继承父模块的命名空间。</p>
+</blockquote>
+<h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>用来读取<code>store</code>实例中的数据, 虽然直接修改<code>state</code>中的数据不会报错, 但是不建议直接修改, 不利于维护。</p>
+<p>如果在某一个组件中直接通过<code>state</code> 错误的修改了数据, 通过state不容易查找到出错的源组件。</p>
+<h3 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h3><p><strong>作用:</strong> 修改<code>state</code>中的值, 要通过<code>mutation</code> 修改(<code>mutation</code> 指的是 定义在<code>mutations</code>中的方法)。 </p>
+<p>既然<code>vuex</code> 中的状态是响应式的, 那么我们变更状态时, 见识状态的vue组件也会自动更新。 <strong>因此<code>mutations</code>也要向使用<code>vue</code>一样遵守响应规则:</strong></p>
+<ol>
+<li><p>最好提前在<code>store</code>中初始化好所有需要的属性</p>
+</li>
+<li><p>当对象上添加新属性时, 你应该使用Vue.set(obj ,’newProp’, newVal), 或者以新对象替换老对象</p>
+</li>
+</ol>
+<blockquote>
+<p><code>mutation</code> 必须是同步函数, 我们调试一个项目并观察<code>devtools</code>中mutation日志, 每一条<code>mutation</code>被记录, <code>devtools</code> 都需要捕捉到前一状态和后以状态的快照( 可以理解为每个<code>mutation</code>的执行结果 )。异步会让这一功能无法完成, 因为当<code>mutation</code>触发时, 回调函数还没有被调用。<code>devtools</code> 不知道什么时候回调函数实际被调用 — 实质上任何在回调函数中进行的<code>state</code>改变都是没有办法追踪的。</p>
+</blockquote>
+<h3 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h3><p><code>getters</code> 可以看做是<code>store</code>的计算属性, getters 的返回值会根据它的依赖被缓存起来, 且只有当它的依赖发生了改变才会被重新计算。</p>
+<blockquote>
+<p><strong>注意:</strong> getters如果作为方法访问的时候, 每次都会被调用, 不会被缓存<br><strong>注意:</strong> getters 会暴露为store的属性, 因此可以通过$store.getters来访问它</p>
+</blockquote>
+<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><p>actions 类似于mutations, 不同在于: action 一般用来调用 mutation 来修改state 而不是直接变更状态( 修改state )</p>
+<p>actions 中可以包含任意的异步操作。</p>
+<p>例如: 点击购物车商品加减的时候, 需要请求ajax中获取商品的库存等, 这时要修改state就要通过 action 请求数据 调用mutation 修改state</p>
+<p>action 可以通过 store.dispatch(‘actionKey’) 触发, action支持载荷形式进行触发。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">store.dispatch(&apos;increment&apos;,&#123;count:10&#125;)</span><br><span class="line"></span><br><span class="line">store.dispatch(&#123;type:&apos;increment&apos;,count:10&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="参数总结"><a href="#参数总结" class="headerlink" title="参数总结"></a>参数总结</h2><h3 id="state-1"><a href="#state-1" class="headerlink" title="state"></a>state</h3><ol>
+<li><p>state 不是函数, 不需要传参</p>
+</li>
+<li><p>state 暴露为 store 的属性</p>
+</li>
+</ol>
+<h3 id="mutations-1"><a href="#mutations-1" class="headerlink" title="mutations"></a>mutations</h3><p>mutation(state, payload(载荷))</p>
+<ol>
+<li><p>state 是当前 module 中的 state</p>
+</li>
+<li><p>payload 如果是单个数据, 可以是一个基本数据类型, 如果是多个数据, 要作为对象或数组的形式传递</p>
+</li>
+</ol>
+<h3 id="getters-1"><a href="#getters-1" class="headerlink" title="getters"></a>getters</h3><ol>
+<li><p>在根store上注册的getter接受以下参数, state, getters</p>
+</li>
+<li><p>在模块上定义的getter可以接受四个参数state, getters, rootState, rootGetters</p>
+</li>
+</ol>
+<h3 id="actions-1"><a href="#actions-1" class="headerlink" title="actions"></a>actions</h3><ol>
+<li>action 的第一个参数是context和store内容相同但不是store, 也可以拆解为对象:{state, rootState, commit, dispatch, getters, rootGetters}</li>
+</ol>
+<h3 id="Vue-Store-实例方法"><a href="#Vue-Store-实例方法" class="headerlink" title="Vue.Store 实例方法"></a>Vue.Store 实例方法</h3><ol>
+<li><p>commit(‘moduleNamespaced/mutationKey’, payload, options), 如果要触发其他模块的mutation, 可以在options中通过{root: true, 在store中触发}</p>
+</li>
+<li><p>dispatch(‘module/actionKey’, payload, options), action 中的payload(载荷) 必须是一个对象, options 中可以是{root:true}</p>
+</li>
+</ol>
+
       
     </div>
 
@@ -494,7 +563,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/html基础/" rel="tag"><i class="fa fa-tag"></i> html基础</a>
+            <a href="/tags/vuex/" rel="tag"><i class="fa fa-tag"></i> vuex</a>
           
         </div>
       
@@ -507,8 +576,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/04/15/vue框架概述/" rel="next" title="vue框架概述">
-                <i class="fa fa-chevron-left"></i> vue框架概述
+              <a href="/2019/04/23/js基础/" rel="next" title="'js基础'">
+                <i class="fa fa-chevron-left"></i> 'js基础'
               </a>
             
           </div>
@@ -516,10 +585,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/23/css笔记/" rel="prev" title="css笔记">
-                css笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -707,7 +772,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HTML"><span class="nav-number">1.</span> <span class="nav-text">HTML</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的通用属性"><span class="nav-number">1.1.</span> <span class="nav-text">常见的通用属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#id属性"><span class="nav-number">1.1.1.</span> <span class="nav-text">id属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#class属性"><span class="nav-number">1.1.2.</span> <span class="nav-text">class属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#title属性"><span class="nav-number">1.1.3.</span> <span class="nav-text">title属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的标签"><span class="nav-number">1.2.</span> <span class="nav-text">常用的标签</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vuex"><span class="nav-number">1.</span> <span class="nav-text">Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候使用vuex"><span class="nav-number">1.1.</span> <span class="nav-text">什么时候使用vuex</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vuex使用步骤"><span class="nav-number">1.2.</span> <span class="nav-text">vuex使用步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#modules模块化"><span class="nav-number">1.2.1.</span> <span class="nav-text">modules模块化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#state"><span class="nav-number">1.2.2.</span> <span class="nav-text">state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mutations"><span class="nav-number">1.2.3.</span> <span class="nav-text">mutations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getters"><span class="nav-number">1.2.4.</span> <span class="nav-text">getters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#actions"><span class="nav-number">1.2.5.</span> <span class="nav-text">actions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数总结"><span class="nav-number">1.3.</span> <span class="nav-text">参数总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#state-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">state</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mutations-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">mutations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getters-1"><span class="nav-number">1.3.3.</span> <span class="nav-text">getters</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#actions-1"><span class="nav-number">1.3.4.</span> <span class="nav-text">actions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-Store-实例方法"><span class="nav-number">1.3.5.</span> <span class="nav-text">Vue.Store 实例方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

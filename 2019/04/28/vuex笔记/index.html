@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 数据可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
+  <meta name="description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 状态可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
 <meta name="keywords" content="vuex">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vuex笔记">
 <meta property="og:url" content="http://yoursite.com/2019/04/28/vuex笔记/index.html">
 <meta property="og:site_name" content="生命1昊">
-<meta property="og:description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 数据可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
+<meta property="og:description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 状态可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-28T07:47:39.868Z">
+<meta property="og:updated_time" content="2019-05-07T00:57:26.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vuex笔记">
-<meta name="twitter:description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 数据可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
+<meta name="twitter:description" content="VuexVuex 是一个专门为 vue.js 应用程序开发的 状态管理模式, 状态可以理解为数据, Vuex 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 对应的Vue实例的一个共享仓库 。 什么时候使用vuex 组件组件之间需要通信, 建议放在vuex。  需要跨多级组件通信, 建议放在vuex。  需要持久化的数据( 如登录后的用户信息 ),">
 
 
 
@@ -387,12 +387,24 @@
                 
               
 
-              <time title="创建时间：2019-04-28 08:59:59 / 修改时间：15:47:39" itemprop="dateCreated datePublished" datetime="2019-04-28T08:59:59+08:00">2019-04-28</time>
+              <time title="创建时间：2019-04-28 08:59:59" itemprop="dateCreated datePublished" datetime="2019-04-28T08:59:59+08:00">2019-04-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-07 08:57:26" itemprop="dateModified" datetime="2019-05-07T08:57:26+08:00">2019-05-07</time>
               
             
           </span>
@@ -444,7 +456,7 @@
       
 
       
-        <h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p><code>Vuex</code> 是一个专门为 <code>vue.js</code> 应用程序开发的 <code>状态管理模式</code>, 数据可以理解为数据, <code>Vuex</code> 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 <strong>对应的Vue实例的一个共享仓库</strong> 。</p>
+        <h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p><code>Vuex</code> 是一个专门为 <code>vue.js</code> 应用程序开发的 <code>状态管理模式</code>, 状态可以理解为数据, <code>Vuex</code> 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 <strong>对应的Vue实例的一个共享仓库</strong> 。</p>
 <h2 id="什么时候使用vuex"><a href="#什么时候使用vuex" class="headerlink" title="什么时候使用vuex"></a>什么时候使用vuex</h2><ol>
 <li><p>组件组件之间需要通信, 建议放在vuex。</p>
 </li>
@@ -458,12 +470,10 @@
 <h2 id="vuex使用步骤"><a href="#vuex使用步骤" class="headerlink" title="vuex使用步骤"></a>vuex使用步骤</h2><ol>
 <li><p>在项目下运行 <code>npm install vuex --save</code></p>
 </li>
-<li><p>在一个模块化的项目中, 需要显示的通过 <code>Vue.use(Vuex)</code> 来安装vuex</p>
-</li>
 <li><p>在main.js 下导入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;  --&gt; 注意 &apos;vue&apos; 是小写</span><br><span class="line">import Vuex from &apos;vuex&apos;  --&gt; 注意小写</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>把vuex注册到项目中 <code>Vue.use(Vuex)</code></p>
+<li><p>在一个模块化的项目中需要, 把vuex注册到项目中 <code>Vue.use(Vuex)</code></p>
 </li>
 <li><p>创建vuex实例</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const store = new Vuex.Store(&#123;</span><br><span class="line">    state: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -477,7 +487,7 @@
 <p>模块化时, 需要把子模块挂载到<code>store</code>中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Vuex.Store(&#123;</span><br><span class="line">    modules:&#123;</span><br><span class="line">        moduleA,</span><br><span class="line">        moduleB</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>模块中通过 <code>namespaced: true</code> 开启命名空间。如果子模块中没有命名空间, 会继承父模块的命名空间。</p>
+<p>模块中通过 <code>namespaced: true</code> 开启命名空间(模块的命名空间为, 在modules中注册进去的key值: 上述中的moduleA)。如果子模块中没有命名空间, 会继承父模块的命名空间。</p>
 </blockquote>
 <h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>用来读取<code>store</code>实例中的数据, 虽然直接修改<code>state</code>中的数据不会报错, 但是不建议直接修改, 不利于维护。</p>
 <p>如果在某一个组件中直接通过<code>state</code> 错误的修改了数据, 通过state不容易查找到出错的源组件。</p>
@@ -586,6 +596,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/05/21/计算机网络通信/" rel="prev" title="计算机网络通信">
+                计算机网络通信 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -655,7 +669,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -686,7 +700,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -727,7 +747,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

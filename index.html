@@ -340,6 +340,749 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/02/session-cookie登录-与token/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="_日天昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生命1昊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/02/session-cookie登录-与token/" class="post-title-link" itemprop="url">session-cookie登录,与token</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-02 15:27:37 / 修改时间：16:39:18" itemprop="dateCreated datePublished" datetime="2019-06-02T15:27:37+08:00">2019-06-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/登录/" itemprop="url" rel="index"><span itemprop="name">登录</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="session-cookie登录与token"><a href="#session-cookie登录与token" class="headerlink" title="session-cookie登录与token"></a>session-cookie登录与token</h1><h2 id="session-cookie登录的实现"><a href="#session-cookie登录的实现" class="headerlink" title="session-cookie登录的实现"></a>session-cookie登录的实现</h2><ol>
+<li><p>输入用户名密码点击登录，服务器拿账号密码去数据库中验证</p>
+</li>
+<li><p>验证成功，把用户对象保存到 session 中，sessionId会保存在 cookie 中（该cookie为浏览器自动生成的）。</p>
+</li>
+<li><p>登陆成功后，客户端发送请求，服务器端都可以通过（HttpSession.getId() 验证 cookie中的sessionId，来识别用户的身份）</p>
+</li>
+<li><p>自动登陆：会把登陆成功后的用户名和密码保存到cookie中，当session过期后在cookie中获取账号密码，进行验证。（一般cookie自动登陆都有过期时间）</p>
+</li>
+</ol>
+<ul>
+<li>session的生命周期</li>
+</ul>
+<ol>
+<li><p>服务器重启（或服务器的 <code>IIS服务</code> 重启）；　</p>
+</li>
+<li><p>调用Session的invalidate方法。</p>
+</li>
+<li><p>用户关闭浏览器；</p>
+</li>
+<li><p>用户超过指定的时间（tomcat中默认为30分钟）没有与服务器发生交互（比如刷新页面、Ajax等）；</p>
+</li>
+</ol>
+<h3 id="session-cookie方式的弊端"><a href="#session-cookie方式的弊端" class="headerlink" title="session-cookie方式的弊端"></a>session-cookie方式的弊端</h3><p>cookie的缺点：  </p>
+<ol>
+<li><p>cookie的大小仅为4（4096字节）kb。尽管很多新的浏览器中已经支持8192字节的cookie。</p>
+</li>
+<li><p>cookie不安全，cookie数据将裸漏在浏览器中，这样大大的增加了被盗的风险，所以一般不要把敏感的数据存放在cookie中，或者对cookie进行加密。</p>
+</li>
+<li><p>容易被xss或csrf攻击，获取到账号密码，或sessionId。</p>
+</li>
+</ol>
+<p>session的缺点：</p>
+<ol>
+<li><p>当服务器用户多的情况下session会大大增加服务器的开销。</p>
+</li>
+<li><p>session基于cookie 可能会发生session顶替的风险。</p>
+</li>
+<li><p><code>用户认证之后，服务端做认证记录，如果认证的记录被保存在内存中的话，这意味着用户下次请求还必须要请求在这台服务器上,这样才能拿到授权的资源，这样在分布式的应用上，相应的限制了负载均衡器的能力。这也意味着限制了应用的扩展能力。????????????????</code></p>
+</li>
+</ol>
+<h3 id="jwt（Json-web-token）"><a href="#jwt（Json-web-token）" class="headerlink" title="jwt（Json web token）"></a>jwt（Json web token）</h3><p>jwt优点：</p>
+<ol>
+<li><p>因为JSON的通用性，jwt可以支持跨语言请求，像JAVA，JavaScript，NodeJS，PHP等很多语言都可以使用。</p>
+</li>
+<li><p>因为有了payload部分，所有JWT可以在自身存储一些业务需要的非敏感信息。</p>
+</li>
+<li><p>便于传输，jwt的构成非常简单，字节占用较小，所以非常便于传输。</p>
+</li>
+</ol>
+<p>jwt缺点：</p>
+<ol>
+<li><p>登录状态信息续签问题。比如设置token的有效期为一个小时，那么一个小时后，如果用户仍然在这个web应用上，这个时候当然不能指望用户再登录一次。目前可用的解决办法是在每次用户发出请求都返回一个新的token，前端再用这个新的token来替代旧的，这样每一次请求都会刷新token的有效期。但是这样，需要频繁的生成token。另外一种方案是判断还有多久这个token会过期，在token快要过期时，返回一个新的token。</p>
+</li>
+<li><p>用户主动注销。JWT并不支持用户主动退出登录，当然，可以在客户端删除这个token，但在别处使用的token仍然可以正常访问。为了支持注销，我的解决方案是在注销时将该token加入黑名单。</p>
+</li>
+</ol>
+<p>使用jwt注意点：</p>
+<ol>
+<li><p>在payload中不应该存放敏感信息，以为该部分客户端是可以解密的。</p>
+</li>
+<li><p>secret_key不能泄露。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/01/http中的无状态指什么/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="_日天昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生命1昊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/01/http中的无状态指什么/" class="post-title-link" itemprop="url">http中的无状态指什么</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-01 03:09:39 / 修改时间：03:55:31" itemprop="dateCreated datePublished" datetime="2019-06-01T03:09:39+08:00">2019-06-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/通信原理/" itemprop="url" rel="index"><span itemprop="name">通信原理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="http协议无状态中的-“状态”-到底指的是什么？"><a href="#http协议无状态中的-“状态”-到底指的是什么？" class="headerlink" title="http协议无状态中的 “状态” 到底指的是什么？"></a>http协议无状态中的 “状态” 到底指的是什么？</h1><blockquote>
+<p>转自 <a href="https://www.cnblogs.com/bellkosmos/p/5237146.html" target="_blank" rel="noopener">https://www.cnblogs.com/bellkosmos/p/5237146.html</a>  作者：赛艇队长</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/01/深入了解cookie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="_日天昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生命1昊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/01/深入了解cookie/" class="post-title-link" itemprop="url">深入了解cookie</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-01 02:51:56 / 修改时间：02:54:20" itemprop="dateCreated datePublished" datetime="2019-06-01T02:51:56+08:00">2019-06-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/cookie/" itemprop="url" rel="index"><span itemprop="name">cookie</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="深入了解cookie"><a href="#深入了解cookie" class="headerlink" title="深入了解cookie"></a>深入了解cookie</h1><h2 id="什么是cookie"><a href="#什么是cookie" class="headerlink" title="什么是cookie"></a>什么是cookie</h2>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/计算机网络通信/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="_日天昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生命1昊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/05/21/计算机网络通信/" class="post-title-link" itemprop="url">计算机网络通信</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-21 22:51:37 / 修改时间：23:44:07" itemprop="dateCreated datePublished" datetime="2019-05-21T22:51:37+08:00">2019-05-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/通信原理/" itemprop="url" rel="index"><span itemprop="name">通信原理</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="计算机通信原理"><a href="#计算机通信原理" class="headerlink" title="计算机通信原理"></a>计算机通信原理</h1><h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>一个通信实例，通信中的三次握手:<br><img src="/2019/05/21/计算机网络通信/三次握手.jpg" alt="三次握手"></p>
+<ol>
+<li>红方A 要通过 蓝方C (不可靠路径)向 红方B 发送信息</li>
+<li>为了让 A 知道 B 收到了消息，B 要派人向 A 传送<code>收到了</code>的信息</li>
+<li>A 收到后，为了让 B 知道 自己收到了信息，向 B 发送确认消息。</li>
+</ol>
+<p>每次握手可能的情况: </p>
+<ol>
+<li>信使顺利到达。</li>
+<li>信使没有到达,对方收到信息,首次发送信息的一方,不会一直等待回信,时间超时后会继续发送</li>
+<li>信息被篡改,或伪造的信息</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/28/vuex笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -385,12 +1128,24 @@
                 
               
 
-              <time title="创建时间：2019-04-28 08:59:59 / 修改时间：15:47:39" itemprop="dateCreated datePublished" datetime="2019-04-28T08:59:59+08:00">2019-04-28</time>
+              <time title="创建时间：2019-04-28 08:59:59" itemprop="dateCreated datePublished" datetime="2019-04-28T08:59:59+08:00">2019-04-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-07 08:57:26" itemprop="dateModified" datetime="2019-05-07T08:57:26+08:00">2019-05-07</time>
               
             
           </span>
@@ -444,7 +1199,7 @@
       
         
           
-            <h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p><code>Vuex</code> 是一个专门为 <code>vue.js</code> 应用程序开发的 <code>状态管理模式</code>, 数据可以理解为数据, <code>Vuex</code> 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 <strong>对应的Vue实例的一个共享仓库</strong> 。</p>
+            <h1 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h1><p><code>Vuex</code> 是一个专门为 <code>vue.js</code> 应用程序开发的 <code>状态管理模式</code>, 状态可以理解为数据, <code>Vuex</code> 可以把一些共享的数据, 集中起来提供 Store挂载的Vue实例的每个模块使用, 可以理解为是 <strong>对应的Vue实例的一个共享仓库</strong> 。</p>
 <h2 id="什么时候使用vuex"><a href="#什么时候使用vuex" class="headerlink" title="什么时候使用vuex"></a>什么时候使用vuex</h2><ol>
 <li><p>组件组件之间需要通信, 建议放在vuex。</p>
 </li>
@@ -458,12 +1213,10 @@
 <h2 id="vuex使用步骤"><a href="#vuex使用步骤" class="headerlink" title="vuex使用步骤"></a>vuex使用步骤</h2><ol>
 <li><p>在项目下运行 <code>npm install vuex --save</code></p>
 </li>
-<li><p>在一个模块化的项目中, 需要显示的通过 <code>Vue.use(Vuex)</code> 来安装vuex</p>
-</li>
 <li><p>在main.js 下导入</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;  --&gt; 注意 &apos;vue&apos; 是小写</span><br><span class="line">import Vuex from &apos;vuex&apos;  --&gt; 注意小写</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>把vuex注册到项目中 <code>Vue.use(Vuex)</code></p>
+<li><p>在一个模块化的项目中需要, 把vuex注册到项目中 <code>Vue.use(Vuex)</code></p>
 </li>
 <li><p>创建vuex实例</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const store = new Vuex.Store(&#123;</span><br><span class="line">    state: &#123;&#125;,</span><br><span class="line">    mutations: &#123;&#125;,</span><br><span class="line">    actions: &#123;&#125;,</span><br><span class="line">    getters: &#123;&#125;,</span><br><span class="line">    modules: &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -477,7 +1230,7 @@
 <p>模块化时, 需要把子模块挂载到<code>store</code>中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Vuex.Store(&#123;</span><br><span class="line">    modules:&#123;</span><br><span class="line">        moduleA,</span><br><span class="line">        moduleB</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <blockquote>
-<p>模块中通过 <code>namespaced: true</code> 开启命名空间。如果子模块中没有命名空间, 会继承父模块的命名空间。</p>
+<p>模块中通过 <code>namespaced: true</code> 开启命名空间(模块的命名空间为, 在modules中注册进去的key值: 上述中的moduleA)。如果子模块中没有命名空间, 会继承父模块的命名空间。</p>
 </blockquote>
 <h3 id="state"><a href="#state" class="headerlink" title="state"></a>state</h3><p>用来读取<code>store</code>实例中的数据, 虽然直接修改<code>state</code>中的数据不会报错, 但是不建议直接修改, 不利于维护。</p>
 <p>如果在某一个组件中直接通过<code>state</code> 错误的修改了数据, 通过state不容易查找到出错的源组件。</p>
@@ -652,7 +1405,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-24 09:09:12" itemprop="dateModified" datetime="2019-04-24T09:09:12+08:00">2019-04-24</time>
+                <time title="修改时间：2019-04-29 13:50:10" itemprop="dateModified" datetime="2019-04-29T13:50:10+08:00">2019-04-29</time>
               
             
           </span>
@@ -1237,12 +1990,24 @@
                 
               
 
-              <time title="创建时间：2019-04-23 08:16:47 / 修改时间：08:18:39" itemprop="dateCreated datePublished" datetime="2019-04-23T08:16:47+08:00">2019-04-23</time>
+              <time title="创建时间：2019-04-23 08:16:47" itemprop="dateCreated datePublished" datetime="2019-04-23T08:16:47+08:00">2019-04-23</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-02 16:10:20" itemprop="dateModified" datetime="2019-05-02T16:10:20+08:00">2019-05-02</time>
               
             
           </span>
@@ -1506,827 +2271,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/vue框架概述/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="_日天昊">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="生命1昊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/15/vue框架概述/" class="post-title-link" itemprop="url">vue框架概述</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-15 21:11:59 / 修改时间：21:12:36" itemprop="dateCreated datePublished" datetime="2019-04-15T21:11:59+08:00">2019-04-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/vue框架/" itemprop="url" rel="index"><span itemprop="name">vue框架</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-      
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/vue路由/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="_日天昊">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="生命1昊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/15/vue路由/" class="post-title-link" itemprop="url">vue路由</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-15 19:26:05" itemprop="dateCreated datePublished" datetime="2019-04-15T19:26:05+08:00">2019-04-15</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-26 08:18:36" itemprop="dateModified" datetime="2019-04-26T08:18:36+08:00">2019-04-26</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/vue框架/" itemprop="url" rel="index"><span itemprop="name">vue框架</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="vue-router-路由"><a href="#vue-router-路由" class="headerlink" title="vue-router(路由)"></a>vue-router(路由)</h1><h2 id="路由起步"><a href="#路由起步" class="headerlink" title="路由起步"></a>路由起步</h2><p>当引入vue-router包之后, 在window中就有了VueRouter构造器, 此时在打开网页时, 路径后就会加一个 #/ (#/ 被称为哈希) </p>
-<p>通过注入vue-router.js, 我们可以在任何组件内 访问到 路由 和 路由器, 也可以通过 this.$route 访问路由。同一个Vue实例中, $route 和 $router  是整个 #app 和 组件 中共有的。</p>
-<p><strong>注意:</strong> 如果路由匹配成功, 将自动设置class=”router-link-active”属性值</p>
-<p><strong>使用步骤:</strong><br>HTML部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 使用 VueRouter 提供的标签 router-link 组进行导航 --&gt;</span><br><span class="line">&lt;!-- &apos;to&apos;属性指向链接 --&gt;</span><br><span class="line">&lt;!-- router-link 默认会解析成 a标签, 可以使用 tag 属性指定解析成你想要的标签 --&gt;</span><br><span class="line">&lt;router-link to=&quot;/login&quot; tag=&quot;span&quot;&gt;登录&lt;/router-link&gt;</span><br><span class="line">&lt;router-link to-&quot;/register&quot;&gt;注册&lt;router-link&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 路由出口, 占位符, 将路由匹配到的组件展示在这里 --&gt;</span><br><span class="line">&lt;router-view&gt;&lt;/router-view&gt;</span><br></pre></td></tr></table></figure></p>
-<p>JS部分</p>
-<blockquote>
-<p><strong>注意:</strong> 如果使用模块化机制编程, 导入Vue 和VueRouter 要调用vue.use(VueRouter)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 1. 创建组件模板</span><br><span class="line">var login = &#123;</span><br><span class="line">    template:&apos;&lt;div&gt;这是登录组件&lt;/div&gt;&apos;</span><br><span class="line">&#125;</span><br><span class="line">var register = &#123;</span><br><span class="line">    template:&apos;&lt;div&gt;注册&lt;/div&gt;&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 2. 创建路由对象</span><br><span class="line">var router = new VueRouter(&#123;</span><br><span class="line">    routes:[</span><br><span class="line">        &#123;path:&apos;/login&apos;,</span><br><span class="line">        component:login&#125;,</span><br><span class="line">        &#123;path:&apos;/register&apos;,</span><br><span class="line">        component:register&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 3. 把路由对象注入/ 挂载到vue实例中, 从而让整个应用都有路由功能</span><br><span class="line">var vm = new Vue(&#123;</span><br><span class="line">    el:&apos;#app&apos;,</span><br><span class="line">    router</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<hr>
-<h2 id="动态路由的匹配-路由传参"><a href="#动态路由的匹配-路由传参" class="headerlink" title="动态路由的匹配(路由传参)"></a>动态路由的匹配(路由传参)</h2><blockquote>
-<p>假设有一个 登录组件 ,对于所有的用户ID, 都要使用这个组件来渲染, 那么每次渲染的时候 虽然是同一个组件, 但是每个用户的数据不同, 那么就可以在 路由的匹配规则中使用 动态路径参数 来实现该功能。</p>
-</blockquote>
-<h3 id="params动态路径参数"><a href="#params动态路径参数" class="headerlink" title="params动态路径参数"></a>params动态路径参数</h3><blockquote>
-<p>注意: 是 $route.params 而不是 $router</p>
-</blockquote>
-<ul>
-<li>使用方法</li>
-</ul>
-<ol>
-<li>在路由匹配规则中对参数进行占位, 跳转的时候 <strong>必须</strong> 要传一个与该参数对应的值<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=&quot;/login/001&quot; &gt;登录&lt;/router-link&gt;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    path:&apos;/login/:键&apos;,</span><br><span class="line">    component:`</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h2&gt;这是登录组件,当前用户为:&#123;&#123;$route.params.id&#125;&#125;&lt;/h2&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    `</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>匹配多个参数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=&quot;/account/001/login/002&quot;&gt;</span><br><span class="line"></span><br><span class="line">&#123;path:&apos;/account/:type/login/:id&apos;&#125;</span><br><span class="line"></span><br><span class="line">==》$route.params:&#123;type:&apos;001&apos;,id:&apos;002&apos;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="query传参"><a href="#query传参" class="headerlink" title="query传参"></a>query传参</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link to=&quot;/login?id=001&quot;&gt;</span><br><span class="line"></span><br><span class="line">$route.query :&#123;id:&apos;001&apos;&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="设置路由的激活样式"><a href="#设置路由的激活样式" class="headerlink" title="设置路由的激活样式"></a>设置路由的激活样式</h2><h3 id="router-link-active"><a href="#router-link-active" class="headerlink" title="router-link-active"></a>router-link-active</h3><blockquote>
-<p>当匹配上的路由跳转之后, 会加上 router-link-active 的class属性值, 可以通过给router-link-active 来设置当前激活路由的样式</p>
-</blockquote>
-<h3 id="router-link-exact-active"><a href="#router-link-exact-active" class="headerlink" title="router-link-exact-active"></a>router-link-exact-active</h3><blockquote>
-<p>该类选择器是当前 激活 的 精确 路由, 而router-link-active 是当前路由中所有匹配到的路由, 例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/account/login  ==&gt;  account,login</span><br><span class="line"></span><br><span class="line">--&gt; account,login都是路径匹配到的路由,都会有router-link-active</span><br><span class="line"></span><br><span class="line">--&gt; 只有 login 是当前精确的路由 会有router-link-exact-active</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="linkActiveClass属性"><a href="#linkActiveClass属性" class="headerlink" title="linkActiveClass属性"></a>linkActiveClass属性</h3><blockquote>
-<p>路由对象的 linkActiveClass属性 可以自定义 router-link-active 的class 命名, 例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new VueRouter(&#123;</span><br><span class="line">    routes:[],</span><br><span class="line"></span><br><span class="line">    // 自定义router-link-active 为 myClass</span><br><span class="line">    linkActiveClass: &apos;myClass&apos; </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h2 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h2><blockquote>
-<p>此重定向原理是直接改变锚点地址, 并不是后端的重定向,不需要通过服务器重定向。</p>
-</blockquote>
-<ol>
-<li>重定向设置默认匹配路径</li>
-</ol>
-<p>例: 当访问 根路径 的时候默认访问/login<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">path:&apos;/&apos;,redirect:&apos;/login&apos;</span><br><span class="line">``` </span><br><span class="line">---</span><br><span class="line">##  捕获所有404路由</span><br><span class="line">&gt; 如果想匹配任意路径, 使用通配符 * </span><br><span class="line"></span><br><span class="line">--- </span><br><span class="line">##  匹配优先级</span><br><span class="line">&gt; 同一路径可以匹配多个路由, 此时谁先定义IDE谁的优先级就高</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">##  路由嵌套</span><br><span class="line">&gt; 路由之间也可以有嵌套关系</span><br></pre></td></tr></table></figure></p>
-<p>/user/foo/profile                     /user/foo/posts<br>+——————+                  +—————–+<br>| User             |                  | User            |<br>| +————–+ |                  | +————-+ |<br>| | Profile      | |  +————&gt;  | | Posts       | |<br>| |              | |                  | |             | |<br>| +————–+ |                  | +————-+ |<br>+——————+                  +—————–+<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+   children </span><br><span class="line">&gt; children 用来设置子路由的匹配规则, 例:</span><br></pre></td></tr></table></figure></p>
-<p>routes:[<br>    {path:’/‘,redirect:’/user’},<br>    {<br>        path:’/user’,<br>        component:user,<br>        children:[<br>            {path:’profile’,component:profile},<br>            {path:’posts’,component:posts}<br>        ]<br>    }<br>]<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">##  侦听路由</span><br><span class="line">&gt; 在使用路由参数时, 参数的改变, 原来的组件实例会被复用, 也就是说 /login/张三 到 /login/李四, 它们使用的都是匹配 /login 的组件, 此时组件会被复用, 组件被复用会比较高效, 但这意味着 它们的改变不会调用生命周期函数。</span><br><span class="line"></span><br><span class="line">&gt; 复用组件时, 想对路由的变化做出响应, 可以通过侦听器监听路由的改变</span><br></pre></td></tr></table></figure></p>
-<p>const User = {<br>    template:’…’,<br>    watch:{<br>        ‘$route’(to,from){<br>            // 对路由的变化做出响应<br>        }<br>    }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">##  编程式的导航</span><br><span class="line"></span><br><span class="line">除了使用`&lt;router-link&gt;` 来进行跳转 锚点 之外, 还可以借助 router实例的方法, 通过编写代码来实现。</span><br><span class="line"></span><br><span class="line">在Vue实例内部, 可以访问到$router, 因此可以通过 this.$router.push 导航到不同的URL</span><br></pre></td></tr></table></figure></p>
-<pre><code>// 字符串
-router.push(&apos;/login&apos;)
-
-// 对象
-router.push({path:&apos;/login&apos;})
-
-// 命名的路由,对应路由的name属性
-router.push({name:&apos;login&apos;,params:{useId:&apos;123&apos;}})
-
-// 如果提供了 path, params会被忽略 , 但是query不会
-router.push({path:&apos;/login&apos;,query:{useId:&apos;123&apos;}})
-
-// 带有params参数应该写成如下形式
-router.push({path:&apos;/login/useId&apos;})
-</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+   router.replace</span><br><span class="line">&gt; router.replace 跟 router.push 很像, 唯一的不同就是, 它不会像history中添加新记录, 而是跟它的方法名一样 --- 替换掉当前的 history 记录</span><br><span class="line"></span><br><span class="line">+   router.go(n), 意思是历史记录,前进或者后退n步</span><br></pre></td></tr></table></figure>
-<p>router.go(1) –&gt; 前进1步</p>
-<p>rouetr.go(-1) –&gt; 后退1步<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##  命名路由</span><br><span class="line"></span><br><span class="line">有时候, 通过名称来表示一个路由显的更方便一点, 可以通过路由匹配规则中添加name 属性, 例:</span><br></pre></td></tr></table></figure></p>
-<p>{path:’/login’,<br>name:’login’,<br>component:login}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">router-link 通过 路由的 name 跳转, 这和 push 很相似, to 后面要跟一个对象</span><br></pre></td></tr></table></figure></p>
-<p><router-link to="{name:'login',params:{userId:'001'}}"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">##  命名视图</span><br><span class="line">&gt; 时候想要同一个路径展示多个组件,而不是嵌套展示,可以使用命名视图, 区别于命名路由</span><br></pre></td></tr></table></figure></router-link></p>
-<p>// 如果路由出口 router-view 没有设置 name , 则 name 默认为 default</p>
-<template id="login"><br>    <router-view name="a"></router-view><br>    <router-view name="b"></router-view><br>    <router-view></router-view><br></template>
-
-<p>const router = VueRouter({<br>    routes:[<br>        {path:’/login’,<br>        components:{<br>            default:com1,<br>            a:com2,<br>            c:com3<br>        }}<br>    ]<br>})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">##  导航守卫</span><br><span class="line"></span><br><span class="line">&gt; **导航** 表示路由正在发生改变。</span><br><span class="line"></span><br><span class="line">正如其名, `vue-router` 提供的导航守卫主要用来 通过跳转或取消的方式来 守卫**导航** 。</span><br><span class="line"></span><br><span class="line">&gt; **注意:** 路由中参数的改变并不会触发 进入/离开 的导航守卫。你可以通过侦听 `$route`对象 或 beforeRouteUpdate 的组件内守卫。 </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 全局前置守卫</span><br><span class="line"></span><br><span class="line">router.beforeEach 用来注册一个全局前置守卫,当一个导航触发时, 全局前置守卫按照创建顺序调用。守卫是异步解析执行, 此时导航( 正在发生改变的路径 )在所有的守卫resolve 完之前一直处于等待状态。</span><br><span class="line"></span><br><span class="line">&gt; 全局导航每个路由的改变都会触发, 不会触发路由参数的改变</span><br><span class="line"></span><br><span class="line">**每个守卫方法接受三个参数:**</span><br><span class="line"></span><br><span class="line">+   to, 即将要进入的目标路由</span><br><span class="line"></span><br><span class="line">+   from, 当前导航( 表示路由正在发生改变 )正要离开的路由</span><br><span class="line"></span><br><span class="line">+   next, **一定要调用该方法resolve这个钩子(before)** ,执行效果依赖于next方法的参数。</span><br><span class="line"></span><br><span class="line">    - next() 执行管道中的下一个钩子, 如果管道中的钩子执行完了, 则导航的状态就是 confirm (确认的,即确定进入to:route)</span><br><span class="line"></span><br><span class="line">    - next(false): 中断当前的导航。如果浏览器的url改变了( 可能是用户手动输入了 url 或浏览器后退按钮 ),那么 URL 的地址会重置到 from 对应的路由。</span><br><span class="line"></span><br><span class="line">    - next(&apos;/&apos;) 或者是 next(&#123;path:&apos;/&apos;&#125;) 跳转到一个不同的地址。即当前跳转的导航中断, 然后进行一个新的导航。可以向next() 中传递任意对象, 且允许设置诸如 replace:true, name:&apos;home&apos; 之类的选项 以及 用在 router-link 中的 to属性 和应用在 router.push 中的选项。</span><br><span class="line"></span><br><span class="line">    - next(error) 如果传给next的是一个 Error 实例, 则导航会被终止, 且错误会被传递给 router.onError() 注册过的回调 --&gt; 暂时不了解</span><br><span class="line">### 全局解析守卫</span><br><span class="line"></span><br><span class="line">router.beforeResolve 注册一个全局解析守卫, 这和 `beforeEach` 类似, 区别在导航被确认之前, 同时在所有的组件内守卫 和 异步路由组件 被解析之后, 解析守卫会被调用。</span><br><span class="line"></span><br><span class="line">### 全局后置钩子</span><br><span class="line"></span><br><span class="line">`router.afterEach` 注册一个全局后置钩子, 这些钩子不会接受 next 参数, 不会改变导航本身。</span><br><span class="line"></span><br><span class="line">### 路由独享的守卫</span><br><span class="line"></span><br><span class="line">可以在路由里直接定义 `beforeEnter` 守卫</span><br></pre></td></tr></table></figure></p>
-<p>const router = new VueRouter({<br>    routes: [<br>        {<br>            path:’/home’,<br>            component: Home,<br>            beforeEnter: () =&gt; {<br>                …<br>            }<br>        }<br>    ]<br>})<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 组件内的守卫</span><br><span class="line"></span><br><span class="line">最后, 可以在路由组件内定义以下路由导航守卫: </span><br><span class="line"></span><br><span class="line">+   beforeRouteEnter </span><br><span class="line"></span><br><span class="line">    1. 该钩子会在渲染该组件的对应路由被 confirm 前被调用</span><br><span class="line"></span><br><span class="line">    2. **不能** 获取组件 **实例this** ,因为当守卫执行完之前, 组件实例还没有被创建。</span><br><span class="line"></span><br><span class="line">+   beforeRouteUpdate </span><br><span class="line">    </span><br><span class="line">    1. 在当前路由改变, 但是组件被复用的时候调用, 例: 动态匹配路由 </span><br><span class="line"></span><br><span class="line">    2. 该钩子**可以访问组件实例this**</span><br><span class="line"></span><br><span class="line">+   beforeRouteLeave</span><br><span class="line"></span><br><span class="line">    1. 导航离开该组件的路有时调用</span><br><span class="line"></span><br><span class="line">    2. 可以访问 this </span><br><span class="line"></span><br><span class="line">&gt; beforeRouteEnter 不能访问到 组件实例this, 是因为该守卫在导航被确认之前被调用, 此时即将登场的新组建还没有被创建。</span><br><span class="line"></span><br><span class="line">&gt; **但是,** 可以传一个回调函数给`next`来访问组件实例。在导航被确认的时候执行回调, 并且把组件的实例作为回调方法的参数。</span><br></pre></td></tr></table></figure></p>
-<p>beforeRouteEnter(to, from, next){<br>    next( vm =&gt; {<br>        // 通过 vm 访问组件实例<br>    })<br>}<br><code>`</code></p>
-<blockquote>
-<p><strong>注意:</strong> <code>beforeRouteEnter</code> 是唯一支持 next 方法中传回调函数获取 组件实例的钩子, 对 <code>beforeRouteUpdate</code> <code>beforeRouteLeave</code> 两者来说也没有要使用回调获取组件实例的必要</p>
-</blockquote>
-<blockquote>
-<p><code>beforeRouteLeave</code> 一般用来禁止用户还未保存修改之前离开。该导航可以通过 next(false) 取消。</p>
-</blockquote>
-<h3 id="导航完整的解析-resolve-流程"><a href="#导航完整的解析-resolve-流程" class="headerlink" title="导航完整的解析(resolve)流程"></a>导航完整的解析(resolve)流程</h3><ol>
-<li><p>导航被触发</p>
-</li>
-<li><p>在失活的组件内调用离开守卫 <code>beforeRouteLeave</code></p>
-</li>
-<li><p>调用全局的 <code>beforeEach</code> 守卫</p>
-</li>
-<li><p>在重用的组件里调用 <code>beforeRouteUpdate</code> 守卫 (2.2+)</p>
-</li>
-<li><p>在路由配置里调用 <code>beforeEnter</code></p>
-</li>
-<li><p>解析异步路由组件</p>
-</li>
-<li><p>在被激活的组件里调用<code>beforeRouteEnter</code>。</p>
-</li>
-<li><p>调用全局的<code>beforeResolve</code> 守卫(2.5+)</p>
-</li>
-<li><p>导航被确认confirm</p>
-</li>
-<li><p>调用全局的afterEach钩子( afterEach 在confirm 之后 触发DOM更新之前调用)</p>
-</li>
-<li><p>触发DOM更新</p>
-</li>
-<li><p>用创建好的组件实例调用<code>beforeRouteEnter</code>守卫中传给 next 回调函数。</p>
-</li>
-</ol>
-<h2 id="路由元信息"><a href="#路由元信息" class="headerlink" title="路由元信息"></a>路由元信息</h2>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-      
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/vue组件-下/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="_日天昊">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="生命1昊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/15/vue组件-下/" class="post-title-link" itemprop="url">vue组件-下</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-15 15:04:28 / 修改时间：20:56:39" itemprop="dateCreated datePublished" datetime="2019-04-15T15:04:28+08:00">2019-04-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/vue框架/" itemprop="url" rel="index"><span itemprop="name">vue框架</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="组件-下"><a href="#组件-下" class="headerlink" title="组件-下"></a>组件-下</h1><h2 id="vue插槽"><a href="#vue插槽" class="headerlink" title="vue插槽"></a>vue插槽</h2><blockquote>
-<p>在组件标签中的内容, 被称为组件插槽。</p>
-</blockquote>
-<blockquote>
-<p>如果组件模板中没有定义 <code>&lt;slot&gt;&lt;/slot&gt;</code> 那么组件标签中间的内容都会被抛弃, <code>&lt;slot&gt;</code> 是一个占位符。</p>
-</blockquote>
-<blockquote>
-<p>插槽中的内容可以是文本, 标签, 甚至是组件。</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-com&gt;</span><br><span class="line">插槽内容: 可以是文本, 标签, 甚至是组件。</span><br><span class="line">&lt;/my-com&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="编译作用域"><a href="#编译作用域" class="headerlink" title="编译作用域"></a>编译作用域</h3><p>插槽作用域: 可以简单的理解为, 在谁控制的区域写, 就是写在谁的作用域内。</p>
-<blockquote>
-<p><strong>作为一条规则, 请记住:</strong> 父级模板中的所有内容都是在父级作用域中编译的, 子模板里的所有内容都是在子作用域中编译的。</p>
-</blockquote>
-<h3 id="后备插槽-插槽的默认值"><a href="#后备插槽-插槽的默认值" class="headerlink" title="后备插槽(插槽的默认值)"></a>后备插槽(插槽的默认值)</h3><p>插槽 可以有 默认值, 称为后备插槽, 当组件标签中没有内容的时候, 我们可以在组件模板中的<code>&lt;slot&gt;默认值&lt;/slot&gt;</code> 中间设置默认值</p>
-<blockquote>
-<p><strong>注意:</strong> 由于编译作用域的关系, 后备插槽是无法直接引用同级组件作为后备内容的, 而父级组件中引用子组件 的标签中间部分 可以引用同级组件作为后备内容。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-com&gt;&lt;插槽可以引用同级组件&gt;&lt;/my-com&gt;</span><br><span class="line"></span><br><span class="line">&lt;slot&gt;插槽默认内容无法使用引用同级组件&lt;/slot&gt;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="具名插槽"><a href="#具名插槽" class="headerlink" title="具名插槽"></a>具名插槽</h3><p>在使用集成框架的时候见的比较多, 具名插槽出现的需求是 一个组件的内容<code>&lt;slot&gt;</code>部分, 如何实现同时插入多个<code>&lt;slot&gt;</code></p>
-<p>没有 v-slot 指令的指默认为 default, 无论怎么打乱布局, 都会只按照模板对象中 <code>&lt;slot&gt;</code> 的位置进行排版</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-com&gt;</span><br><span class="line">    &lt;template v-slot:header &gt;</span><br><span class="line">        &lt;h2&gt;这是header部分&lt;/h2&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">    &lt;p&gt;default&lt;/p&gt;</span><br><span class="line">    &lt;template v-slot:footer&gt;</span><br><span class="line">        &lt;h2&gt;这是footer部分&lt;/h2&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">    &lt;p&gt;default&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;default&lt;/p&gt;</span><br><span class="line">&lt;/my-com&gt;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;template id=&quot;tmpl&quot;&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;这是myCom组件&lt;/p&gt;</span><br><span class="line">        &lt;slot name=&quot;header&quot;&gt;&lt;/slot&gt;</span><br><span class="line">        &lt;slot&gt;&lt;/slot&gt;      &lt;!-- 对于没有name 的slot 会有一个隐式的名字 --&gt;</span><br><span class="line">        &lt;slot name=&quot;footer&quot;&gt;&lt;/slot&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="vue作用域插槽"><a href="#vue作用域插槽" class="headerlink" title="vue作用域插槽"></a>vue作用域插槽</h3><blockquote>
-<p>作用域插槽可以让插槽内容, 访问到子组件中的数据。这在有些时候是比较有用的</p>
-</blockquote>
-<p>例: 父级作用域要访问 子组件 <code>&lt;current-user&gt;</code> 中的 user 数据。首先要现在子组件的<code>&lt;slot&gt;</code>将该数据作为属性绑定到自身。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;current-user&gt;</span><br><span class="line">    &lt;!-- 包含所有插槽 prop 的对象命名为 slotProps --&gt;</span><br><span class="line">    &lt;template v-slot:default=&quot;propSlot&quot;&gt;</span><br><span class="line">        &#123;&#123;propSlot.user&#125;&#125;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">&lt;/current-user&gt;</span><br><span class="line"></span><br><span class="line">&lt;template id=&quot;current-user&quot;&gt;</span><br><span class="line">    &lt;!-- 绑定在 &lt;slot&gt; 元素上的值 被称为插槽prop --&gt;</span><br><span class="line">    &lt;slot :user=&quot;user&quot;&gt;&lt;/slot&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-<hr>
-<h2 id="处理边界情况"><a href="#处理边界情况" class="headerlink" title="处理边界情况"></a>处理边界情况</h2><blockquote>
-<p>在绝大多数情况下, 我们最好不要触达另一个组件实例内部或手动操作 DOM 元素。不过也确实在一些情况下做这些事情是合适的。</p>
-</blockquote>
-<ol>
-<li><p>访问根实例</p>
-<p> 在每个Vue实例的子组件中, 其根实例可以通过<code>root</code>属性进行访问。例如,在这个根实例中: </p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data:&#123;</span><br><span class="line">    foo:1;</span><br><span class="line">&#125;,</span><br><span class="line">computed:&#123;</span><br><span class="line">    bar()&#123;</span><br><span class="line">        return 2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">methods:&#123;</span><br><span class="line">    baz()&#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> 所有的子组件都可以将这个实例作为一个全局 store 来访问或使用。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data()&#123;return &#123;...&#125;&#125;,</span><br><span class="line">methods:&#123;</span><br><span class="line">    test()&#123; // 子组件中的方法</span><br><span class="line">        this.$root.foo          --&gt; 获取根组件 data 中的foo</span><br><span class="line">        this.$root.foo = 11;    --&gt; 写入根组件 data 中的 foo</span><br><span class="line">        this.$root.bar          --&gt; 读取根组件中的计算属性 bar </span><br><span class="line">        this.$root.baz()        --&gt; 调用根组件中的 baz 方法</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>访问父级组件实例</p>
-<p> 访问父级组件实例通过 <code>$parent</code> 来获取组件实例</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test()&#123; // 子组件中的方法</span><br><span class="line">    // 获取父级组件对象</span><br><span class="line">    this.$parent</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>访问子元素和子组件</p>
-<p> 在 组件标签 和 html标签 中添加 <code>ref</code> 属性。</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;my-com ref=&quot;com&quot;&gt;&lt;/my-com&gt;</span><br><span class="line">&lt;p ref=&quot;p&quot;&gt;&lt;/p&gt;</span><br></pre></td></tr></table></figure>
-<p> 在根组件中, 通过 <code>$refs</code> 获取子组件和子元素</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">this.$refs.com   --&gt;  获取 my-com 组件</span><br><span class="line">this.$refs.p     --&gt;  获取 p 标签</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p><strong>注意:</strong> 当<code>ref</code> 和<code>v-for</code> 一起使用的时候, 你得到的引用将会是一个包含了对应数据源的子组件 和 标签 的数组。</p>
-</blockquote>
-<blockquote>
-<p><strong>注意:</strong> <code>refs</code> 只会在组件渲染完成之后生效, 并且他们不是响应式的。这仅作为一个用于直接操作子组件的”逃生舱” – 你应该避免在模板或计算属性中访问<code>$ref</code>。</p>
-</blockquote>
-<hr>
-<h2 id="过渡-动画"><a href="#过渡-动画" class="headerlink" title="过渡/动画"></a>过渡/动画</h2><blockquote>
-<p>掌握两组class<br>在<code>v-leave-active</code>,<code>v-enter-active</code>中添加<code>transition</code>, 给<code>v-leave-active</code>,<code>v-enter</code>中添加如何移动,例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.v-leave-active,.v-enter-active&#123;</span><br><span class="line">    transition: all .4s ease;</span><br><span class="line">&#125;</span><br><span class="line">.v-leave-to,.v-enter&#123;</span><br><span class="line">    opacity:0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-      
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/数据结构线性表-待改进/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="_日天昊">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="生命1昊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/04/15/数据结构线性表-待改进/" class="post-title-link" itemprop="url">数据结构线性表-待改进</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-15 13:27:58 / 修改时间：14:12:36" itemprop="dateCreated datePublished" datetime="2019-04-15T13:27:58+08:00">2019-04-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-      
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2375,7 +2319,7 @@ router.push({path:&apos;/login/useId&apos;})
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2406,7 +2350,13 @@ router.push({path:&apos;/login/useId&apos;})
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2447,7 +2397,15 @@ router.push({path:&apos;/login/useId&apos;})
                     
                       
                     
-                    <span class="site-state-item-count">12</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

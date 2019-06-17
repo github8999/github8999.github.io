@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-06-02T08:39:18.899Z</updated>
+  <updated>2019-06-17T13:26:25.662Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>实现深拷贝的几种方式</title>
+    <link href="http://yoursite.com/2019/06/17/%E5%AE%9E%E7%8E%B0%E6%B7%B1%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
+    <id>http://yoursite.com/2019/06/17/实现深拷贝的几种方式/</id>
+    <published>2019-06-17T13:18:30.000Z</published>
+    <updated>2019-06-17T13:26:25.662Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="实现深拷贝的几种方式"><a href="#实现深拷贝的几种方式" class="headerlink" title="实现深拷贝的几种方式"></a>实现深拷贝的几种方式</h1><h2 id="1-数组和对象通用的方式-小程序可用"><a href="#1-数组和对象通用的方式-小程序可用" class="headerlink" title="1 数组和对象通用的方式(小程序可用)"></a>1 数组和对象通用的方式(小程序可用)</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">attr</span>:&#123;&#125;&#125;</span><br><span class="line"><span class="keyword">var</span> obj1 = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(obj))</span><br><span class="line"><span class="built_in">console</span>.log(obj == obj1) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.attr == obj1.attr) <span class="comment">// false</span></span><br></pre></td></tr></table></figure><h2 id="2-数组的深拷贝"><a href="#2-数组的深拷贝" class="headerlink" title="2 数组的深拷贝"></a>2 数组的深拷贝</h2><blockquote><p>下列方式可能不适合小程序<br>伪数组可以通过 <code>Array.prototype.方法名.call()</code> 的方式使用</p><ol><li>concat()<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [[],[],[]]</span><br><span class="line"><span class="keyword">var</span> arr1 = arr.concat()</span><br></pre></td></tr></table></figure></li></ol></blockquote><ol start="2"><li><p>slice()</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [[],[],[]]</span><br><span class="line"><span class="keyword">var</span> arr1 = arr.slice(<span class="number">0</span>)</span><br></pre></td></tr></table></figure></li><li><p>es6</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [[],[],[]]</span><br><span class="line"><span class="keyword">var</span> arr1 = [...arr]</span><br></pre></td></tr></table></figure></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;实现深拷贝的几种方式&quot;&gt;&lt;a href=&quot;#实现深拷贝的几种方式&quot; class=&quot;headerlink&quot; title=&quot;实现深拷贝的几种方式&quot;&gt;&lt;/a&gt;实现深拷贝的几种方式&lt;/h1&gt;&lt;h2 id=&quot;1-数组和对象通用的方式-小程序可用&quot;&gt;&lt;a href=&quot;#1-数
+      
+    
+    </summary>
+    
+      <category term="深拷贝" scheme="http://yoursite.com/categories/%E6%B7%B1%E6%8B%B7%E8%B4%9D/"/>
+    
+    
+      <category term="深拷贝" scheme="http://yoursite.com/tags/%E6%B7%B1%E6%8B%B7%E8%B4%9D/"/>
+    
+  </entry>
   
   <entry>
     <title>session-cookie登录,与token</title>

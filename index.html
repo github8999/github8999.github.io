@@ -340,6 +340,234 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/25/微信小程序生命周期/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="_日天昊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="生命1昊">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/06/25/微信小程序生命周期/" class="post-title-link" itemprop="url">微信小程序生命周期</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-06-25 21:11:38 / 修改时间：22:21:33" itemprop="dateCreated datePublished" datetime="2019-06-25T21:11:38+08:00">2019-06-25</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/微信小程序/" itemprop="url" rel="index"><span itemprop="name">微信小程序</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="微信小程序生命周期"><a href="#微信小程序生命周期" class="headerlink" title="微信小程序生命周期"></a>微信小程序生命周期</h1><h2 id="1-page生命周期"><a href="#1-page生命周期" class="headerlink" title="1 page生命周期"></a>1 page生命周期</h2><p>page中的数据从onLoad到onUnload之间, 从生命周期钩子中都可以对data进行操作。</p>
+<p>以下生命周期按照触发的顺序排列:</p>
+<ol>
+<li><p>onLoad: 第一次打开该页面的时候触发, 如果发生了onUnload,再次打开该页面仍会触发onLoad。</p>
+</li>
+<li><p>onShow: 页面显示/切入前台时触发。</p>
+</li>
+<li><p>onReady: 页面第一次渲染完成调用, 伴随 <code>onLoad</code> 执行。对界面内容进行设置的 API 如 <code>wx.setNavigationBarTitle</code>，请在 <code>onReady</code> 之后进行。</p>
+</li>
+<li><p>onHide: 页面隐藏/切入后台时触发如 <code>wx.navigateTo</code> 或底部 <code>tab</code> 切换到其他页面, 小程序切入后台等。</p>
+</li>
+<li><p>onUnload: 页面卸载时触发, 如 <code>wx.redirectTo</code> 或 <code>wx.navigateBack</code> 到其他页面时。</p>
+</li>
+</ol>
+<blockquote>
+<p><code>data</code> 是页面第一次渲染使用的初始数据。页面加载时，<code>data</code> 将会以JSON字符串的形式由逻辑层传至渲染层，因此 <code>data</code> 中的数据必须是可以转成 <code>JSON</code> 的类型：字符串，数字，布尔值，对象，数组。</p>
+</blockquote>
+<blockquote>
+<p>弹出页面栈再进入也会触发 <code>onload</code> ,弹出页面栈触发 <code>onUnload</code>。</p>
+</blockquote>
+<blockquote>
+<p>底部 <code>tab</code> 切换到其他页面, 不同的情况会触发不同的生命周期:</p>
+</blockquote>
+<h2 id="2-app生命周期"><a href="#2-app生命周期" class="headerlink" title="2 app生命周期"></a>2 app生命周期</h2><ol>
+<li><p>onLaunch: 小程序初始化时触发, 只触发一次</p>
+</li>
+<li><p>onShow: 小程序启动,或从后台进入前台时触发</p>
+</li>
+<li><p>onHide: 小程序前台切换到后台时触发。</p>
+</li>
+<li><p>onError: 小程序发生脚本错误或API 调用报错时触发</p>
+</li>
+<li><p>onPageNotFound: 要打开的页面不存在时触发</p>
+</li>
+</ol>
+<h2 id="3-组件生命周期"><a href="#3-组件生命周期" class="headerlink" title="3 组件生命周期"></a>3 组件生命周期</h2><blockquote>
+<p>组件中的数据在 <code>detached</code> 后被销毁。</p>
+<ol>
+<li>created: 组件实例刚被创建, 此时不能进行 <code>setData</code> , 一般用于给组件的 <code>this</code> 设置一些自定义的属性。</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li><p>attached: 在组件实例进行页面节点树时执行。一般用于进行一些初始化操作。可以进行 <code>setData</code>。每次被 <code>wx:if</code> 渲染都会触发。</p>
+</li>
+<li><p>ready: 在组件视图层布局完成后执行。</p>
+</li>
+<li><p>moved: 组件实例被移动到节点树的另一个位置执行。</p>
+</li>
+<li><p>detached: 在组件实例被从页面节点树移除时执行。每次 <code>wx:if</code> 会触发, 会销毁组件实例, 及数据。</p>
+</li>
+<li><p>error: 组件抛出错误执行。</p>
+</li>
+</ol>
+<p>组件也可以监听所在页面的生命周期: </p>
+<ol>
+<li><p>show</p>
+</li>
+<li><p>hide</p>
+</li>
+<li><p>resize: 页面尺寸发生变化时会触发。</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+      
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/25/深入学习css/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -385,7 +613,7 @@
                 
               
 
-              <time title="创建时间：2019-06-25 20:55:31 / 修改时间：21:07:33" itemprop="dateCreated datePublished" datetime="2019-06-25T20:55:31+08:00">2019-06-25</time>
+              <time title="创建时间：2019-06-25 20:55:31 / 修改时间：21:50:38" itemprop="dateCreated datePublished" datetime="2019-06-25T20:55:31+08:00">2019-06-25</time>
             
 
             
@@ -454,7 +682,9 @@
 <li><p>calc(): 用于动态计算长度值。(css3支持版本, 支持ie9)</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    div&#123;</span><br><span class="line">        width: calc(<span class="number">100</span>% - <span class="number">10</span>px)；<span class="comment">//运算符前后都需要保留一个空格</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>linear-gradient()    创建一个线性渐变的图像    css3(兼容ie10)</p>
+<li><p>linear-gradient(): 创建一个线性渐变的图像 css3(兼容ie10)</p>
+<pre><code class="js">linear-gradient(方向角度, 颜色)
+</code></pre>
 </li>
 <li>radial-gradient()    用径向渐变创建图像。    css3(兼容ie10)</li>
 <li>repeating-linear-gradient()    用重复的线性渐变创建图像。    css3(兼容ie10)</li>
@@ -567,12 +797,24 @@
                 
               
 
-              <time title="创建时间：2019-06-22 14:58:58 / 修改时间：15:12:01" itemprop="dateCreated datePublished" datetime="2019-06-22T14:58:58+08:00">2019-06-22</time>
+              <time title="创建时间：2019-06-22 14:58:58" itemprop="dateCreated datePublished" datetime="2019-06-22T14:58:58+08:00">2019-06-22</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-25 21:56:54" itemprop="dateModified" datetime="2019-06-25T21:56:54+08:00">2019-06-25</time>
               
             
           </span>
@@ -1956,184 +2198,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/21/计算机网络通信/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="_日天昊">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://wx2.sinaimg.cn/mw1024/6d2febeely1g22b2wrhb1j20ku0kugng.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="生命1昊">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/05/21/计算机网络通信/" class="post-title-link" itemprop="url">计算机网络通信</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-21 22:51:37 / 修改时间：23:44:07" itemprop="dateCreated datePublished" datetime="2019-05-21T22:51:37+08:00">2019-05-21</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/通信原理/" itemprop="url" rel="index"><span itemprop="name">通信原理</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="计算机通信原理"><a href="#计算机通信原理" class="headerlink" title="计算机通信原理"></a>计算机通信原理</h1><h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><p>一个通信实例，通信中的三次握手:<br><img src="/2019/05/21/计算机网络通信/三次握手.jpg" alt="三次握手"></p>
-<ol>
-<li>红方A 要通过 蓝方C (不可靠路径)向 红方B 发送信息</li>
-<li>为了让 A 知道 B 收到了消息，B 要派人向 A 传送<code>收到了</code>的信息</li>
-<li>A 收到后，为了让 B 知道 自己收到了信息，向 B 发送确认消息。</li>
-</ol>
-<p>每次握手可能的情况: </p>
-<ol>
-<li>信使顺利到达。</li>
-<li>信使没有到达,对方收到信息,首次发送信息的一方,不会一直等待回信,时间超时后会继续发送</li>
-<li>信息被篡改,或伪造的信息</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-      
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2182,7 +2246,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2225,7 +2289,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2284,7 +2350,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">21</span>
+                      
+                    
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

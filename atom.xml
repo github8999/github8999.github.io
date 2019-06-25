@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-06-25T13:07:33.608Z</updated>
+  <updated>2019-06-25T14:21:33.118Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>微信小程序生命周期</title>
+    <link href="http://yoursite.com/2019/06/25/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>http://yoursite.com/2019/06/25/微信小程序生命周期/</id>
+    <published>2019-06-25T13:11:38.000Z</published>
+    <updated>2019-06-25T14:21:33.118Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="微信小程序生命周期"><a href="#微信小程序生命周期" class="headerlink" title="微信小程序生命周期"></a>微信小程序生命周期</h1><h2 id="1-page生命周期"><a href="#1-page生命周期" class="headerlink" title="1 page生命周期"></a>1 page生命周期</h2><p>page中的数据从onLoad到onUnload之间, 从生命周期钩子中都可以对data进行操作。</p><p>以下生命周期按照触发的顺序排列:</p><ol><li><p>onLoad: 第一次打开该页面的时候触发, 如果发生了onUnload,再次打开该页面仍会触发onLoad。</p></li><li><p>onShow: 页面显示/切入前台时触发。</p></li><li><p>onReady: 页面第一次渲染完成调用, 伴随 <code>onLoad</code> 执行。对界面内容进行设置的 API 如 <code>wx.setNavigationBarTitle</code>，请在 <code>onReady</code> 之后进行。</p></li><li><p>onHide: 页面隐藏/切入后台时触发如 <code>wx.navigateTo</code> 或底部 <code>tab</code> 切换到其他页面, 小程序切入后台等。</p></li><li><p>onUnload: 页面卸载时触发, 如 <code>wx.redirectTo</code> 或 <code>wx.navigateBack</code> 到其他页面时。</p></li></ol><blockquote><p><code>data</code> 是页面第一次渲染使用的初始数据。页面加载时，<code>data</code> 将会以JSON字符串的形式由逻辑层传至渲染层，因此 <code>data</code> 中的数据必须是可以转成 <code>JSON</code> 的类型：字符串，数字，布尔值，对象，数组。</p></blockquote><blockquote><p>弹出页面栈再进入也会触发 <code>onload</code> ,弹出页面栈触发 <code>onUnload</code>。</p></blockquote><blockquote><p>底部 <code>tab</code> 切换到其他页面, 不同的情况会触发不同的生命周期:</p></blockquote><h2 id="2-app生命周期"><a href="#2-app生命周期" class="headerlink" title="2 app生命周期"></a>2 app生命周期</h2><ol><li><p>onLaunch: 小程序初始化时触发, 只触发一次</p></li><li><p>onShow: 小程序启动,或从后台进入前台时触发</p></li><li><p>onHide: 小程序前台切换到后台时触发。</p></li><li><p>onError: 小程序发生脚本错误或API 调用报错时触发</p></li><li><p>onPageNotFound: 要打开的页面不存在时触发</p></li></ol><h2 id="3-组件生命周期"><a href="#3-组件生命周期" class="headerlink" title="3 组件生命周期"></a>3 组件生命周期</h2><blockquote><p>组件中的数据在 <code>detached</code> 后被销毁。</p><ol><li>created: 组件实例刚被创建, 此时不能进行 <code>setData</code> , 一般用于给组件的 <code>this</code> 设置一些自定义的属性。</li></ol></blockquote><ol start="2"><li><p>attached: 在组件实例进行页面节点树时执行。一般用于进行一些初始化操作。可以进行 <code>setData</code>。每次被 <code>wx:if</code> 渲染都会触发。</p></li><li><p>ready: 在组件视图层布局完成后执行。</p></li><li><p>moved: 组件实例被移动到节点树的另一个位置执行。</p></li><li><p>detached: 在组件实例被从页面节点树移除时执行。每次 <code>wx:if</code> 会触发, 会销毁组件实例, 及数据。</p></li><li><p>error: 组件抛出错误执行。</p></li></ol><p>组件也可以监听所在页面的生命周期: </p><ol><li><p>show</p></li><li><p>hide</p></li><li><p>resize: 页面尺寸发生变化时会触发。</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;微信小程序生命周期&quot;&gt;&lt;a href=&quot;#微信小程序生命周期&quot; class=&quot;headerlink&quot; title=&quot;微信小程序生命周期&quot;&gt;&lt;/a&gt;微信小程序生命周期&lt;/h1&gt;&lt;h2 id=&quot;1-page生命周期&quot;&gt;&lt;a href=&quot;#1-page生命周期&quot; cla
+      
+    
+    </summary>
+    
+      <category term="微信小程序" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+    
+      <category term="小程序生命周期" scheme="http://yoursite.com/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>深入学习css</title>
     <link href="http://yoursite.com/2019/06/25/%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0css/"/>
     <id>http://yoursite.com/2019/06/25/深入学习css/</id>
     <published>2019-06-25T12:55:31.000Z</published>
-    <updated>2019-06-25T13:07:33.608Z</updated>
+    <updated>2019-06-25T13:50:38.757Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="深入学习CSS"><a href="#深入学习CSS" class="headerlink" title="深入学习CSS"></a>深入学习CSS</h1><blockquote><p>注意: 语法兼容时, 标准语法必须在最后。</p></blockquote><h2 id="CSS函数"><a href="#CSS函数" class="headerlink" title="CSS函数"></a>CSS函数</h2><ol><li><p>attr(): 返回元素的属性值(兼容IE8必须有文档声明) css2</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    a:after&#123;</span><br><span class="line">        content:attr(href); <span class="comment">// 可以进行字符串拼接</span></span><br><span class="line">        <span class="comment">// content: "("attr(href)")"; 两边拼接上字符串</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">&lt;a href="https:/</span><span class="regexp">/www.baidu.com"&gt;百度&lt;/</span>a&gt;</span><br></pre></td></tr></table></figure></li><li><p>calc(): 用于动态计算长度值。(css3支持版本, 支持ie9)</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    div&#123;</span><br><span class="line">        width: calc(<span class="number">100</span>% - <span class="number">10</span>px)；<span class="comment">//运算符前后都需要保留一个空格</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>linear-gradient()    创建一个线性渐变的图像    css3(兼容ie10)</p></li><li>radial-gradient()    用径向渐变创建图像。    css3(兼容ie10)</li><li>repeating-linear-gradient()    用重复的线性渐变创建图像。    css3(兼容ie10)</li><li>repeating-radial-gradient() css3(兼容ie10)</li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="深入学习CSS"><a href="#深入学习CSS" class="headerlink" title="深入学习CSS"></a>深入学习CSS</h1><blockquote><p>注意: 语法兼容时, 标准语法必须在最后。</p></blockquote><h2 id="CSS函数"><a href="#CSS函数" class="headerlink" title="CSS函数"></a>CSS函数</h2><ol><li><p>attr(): 返回元素的属性值(兼容IE8必须有文档声明) css2</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    a:after&#123;</span><br><span class="line">        content:attr(href); <span class="comment">// 可以进行字符串拼接</span></span><br><span class="line">        <span class="comment">// content: "("attr(href)")"; 两边拼接上字符串</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br><span class="line"><span class="regexp">&lt;a href="https:/</span><span class="regexp">/www.baidu.com"&gt;百度&lt;/</span>a&gt;</span><br></pre></td></tr></table></figure></li><li><p>calc(): 用于动态计算长度值。(css3支持版本, 支持ie9)</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    div&#123;</span><br><span class="line">        width: calc(<span class="number">100</span>% - <span class="number">10</span>px)；<span class="comment">//运算符前后都需要保留一个空格</span></span><br><span class="line">    &#125;</span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>linear-gradient(): 创建一个线性渐变的图像 css3(兼容ie10)</p><pre><code class="js">linear-gradient(方向角度, 颜色)</code></pre></li><li>radial-gradient()    用径向渐变创建图像。    css3(兼容ie10)</li><li>repeating-linear-gradient()    用重复的线性渐变创建图像。    css3(兼容ie10)</li><li>repeating-radial-gradient() css3(兼容ie10)</li></ol>]]></content>
     
     <summary type="html">
     
@@ -48,7 +73,7 @@
     <link href="http://yoursite.com/2019/06/22/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E8%B5%B7%E6%AD%A5/"/>
     <id>http://yoursite.com/2019/06/22/微信小程序起步/</id>
     <published>2019-06-22T06:58:58.000Z</published>
-    <updated>2019-06-22T07:12:01.164Z</updated>
+    <updated>2019-06-25T13:56:54.397Z</updated>
     
     <content type="html"><![CDATA[<h1 id="微信小程序起步"><a href="#微信小程序起步" class="headerlink" title="微信小程序起步"></a>微信小程序起步</h1><h2 id="appid"><a href="#appid" class="headerlink" title="appid"></a>appid</h2><h2 id="app-json-和-page-json"><a href="#app-json-和-page-json" class="headerlink" title="app.json 和 page.json"></a>app.json 和 page.json</h2><blockquote><p>如果 <code>app.json</code> 和 <code>page.json</code> 中的配置项重复了, 那么 <code>page</code> 的配置项会覆盖掉 全局 的配置。</p></blockquote>]]></content>
     
@@ -471,20 +496,6 @@
     
     
       <category term="vue组件" scheme="http://yoursite.com/tags/vue%E7%BB%84%E4%BB%B6/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据结构线性表-待改进</title>
-    <link href="http://yoursite.com/2019/04/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%BA%BF%E6%80%A7%E8%A1%A8-%E5%BE%85%E6%94%B9%E8%BF%9B/"/>
-    <id>http://yoursite.com/2019/04/15/数据结构线性表-待改进/</id>
-    <published>2019-04-15T05:27:58.000Z</published>
-    <updated>2019-04-15T06:12:36.313Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
     
   </entry>
   
